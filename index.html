@@ -373,6 +373,12 @@ body.paged .label .num{display:none}
 @media (max-width:560px){.hl-grid{grid-template-columns:1fr;gap:12px;margin-top:24px}.hl{flex-direction:row;border-radius:12px}.hl-img{width:36%;flex:none;aspect-ratio:auto;min-height:128px;position:relative}.hl-img img{position:absolute;inset:0}.hl-body{padding:12px 14px;gap:4px}.hl h3{font-size:1.05rem}.hl p{font-size:.78rem;line-height:1.4}.hl-k{font-size:.62rem}.hl-go{display:none}}
 /* ---------- phone polish ---------- */
 .tagin,.tagin-g{display:none}
+.h .lvin{display:none}
+@media (max-width:620px){
+  .h > .lv{display:none}
+  .h .t .lvin{display:inline-block;vertical-align:middle;position:relative;top:-1px;font-size:.62rem;line-height:1.4;padding:2px 9px;border:1px solid var(--line);border-radius:999px}
+  .h.top .t .lvin{border-color:var(--accent)}
+}
 @media (max-width:820px){
   .entry > .tagx,.entry > .tagcol{display:none}
   .entry h3 .tagin-g{display:inline-block;white-space:nowrap;vertical-align:middle;position:relative;top:-2px}
@@ -1006,7 +1012,7 @@ function render(){
 
   $("timeline").innerHTML = SITE.journey.map(j => `<div class="j rv${j.key ? " key" : ""}"><div class="y">${j.yr}<small>${esc(j.age[L])}</small></div><div><h3>${esc(j.title[L])}</h3><p>${esc(j.text[L])}</p></div></div>`).join("");
 
-  $("honorList").innerHTML = SITE.honors.map(g => `<div class="hy rv"><div class="yr">${esc(typeof g.yr === "string" ? g.yr : g.yr[L])}</div><div>${g.items.map(h => `<div class="h${h.top ? " top" : ""}"><div class="t">${esc(h.t[L])}${h.d[L] ? `<small>${esc(h.d[L])}</small>` : ""}${h.video ? (h.dur ? `<button class="vbtn sm" data-video="${esc(h.video)}"><span class="vic">▶</span><span>${L === "en" ? "Watch video" : "观看视频"}</span><span class="vdur">${h.dur}</span></button>` : `<button class="vbtn sm" data-video="${esc(h.video)}"><span class="vic">▶</span><span>${L === "en" ? "Watch video" : "观看视频"}</span></button>`) : ""}${h.img ? `<button class="vbtn sm" data-img="${esc(h.img)}"><span class="vic">▣</span><span>${L === "en" ? "View certificate" : "查看证书"}</span></button>` : ""}</div><span class="lv">${esc(h.lvl[L])}</span></div>`).join("")}</div></div>`).join("");
+  $("honorList").innerHTML = SITE.honors.map(g => `<div class="hy rv"><div class="yr">${esc(typeof g.yr === "string" ? g.yr : g.yr[L])}</div><div>${g.items.map(h => `<div class="h${h.top ? " top" : ""}"><div class="t">${esc(h.t[L])} <span class="lv lvin">${esc(h.lvl[L])}</span>${h.d[L] ? `<small>${esc(h.d[L])}</small>` : ""}${h.video ? (h.dur ? `<button class="vbtn sm" data-video="${esc(h.video)}"><span class="vic">▶</span><span>${L === "en" ? "Watch video" : "观看视频"}</span><span class="vdur">${h.dur}</span></button>` : `<button class="vbtn sm" data-video="${esc(h.video)}"><span class="vic">▶</span><span>${L === "en" ? "Watch video" : "观看视频"}</span></button>`) : ""}${h.img ? `<button class="vbtn sm" data-img="${esc(h.img)}"><span class="vic">▣</span><span>${L === "en" ? "View certificate" : "查看证书"}</span></button>` : ""}</div><span class="lv">${esc(h.lvl[L])}</span></div>`).join("")}</div></div>`).join("");
 
   $("pressList").innerHTML = SITE.press.map(p => {
     const inner = `<div class="src">${esc(p.src[L])}${p.date ? " · " + esc(typeof p.date === "string" ? p.date : p.date[L]) : ""}</div><h3>${esc(p.title[L])}</h3>${p.video || p.imgs || p.url ? `<div class="acts">${p.url ? `<a class="vbtn sm" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="vic">↗</span><span>${p.readLabel ? esc(p.readLabel[L]) : (L === "en" ? "Read article" : "阅读报道")}</span></a>` : ""}${p.video ? `<button class="vbtn sm" data-video="${esc(p.video)}"><span class="vic">▶</span><span>${p.watch ? esc(p.watch[L]) : (L === "en" ? "Watch report" : "观看报道")}</span><span class="vdur">${p.dur}</span></button>` : ""}${(p.imgs || []).map(m => `<button class="vbtn sm" data-img="${esc(m.src)}"><span class="vic">▣</span><span>${esc(m.label[L])}</span></button>`).join("")}</div>` : `<div class="go">${L === "en" ? "Link coming soon" : "链接待添加"}</div>`}`;
