@@ -1,0 +1,4 @@
+.DS_Store
+# Videos are too large for git (GitHub limit 100 MB/file); they are hosted as GitHub Release assets instead.
+videos/
+.vercel

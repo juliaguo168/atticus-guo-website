@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atticus Guo</title>
+<meta name="description" content="Atticus Guo — robotics, AI, music and service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Manrope:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f5f0e8; --paper-2:#ede6da; --ink:#16171b; --ink-2:#3a3b40; --muted:#77736b;
+  --line:rgba(22,23,27,.13); --accent:#c4522f; --night:#111216; --night-2:#1a1b20;
+  --serif:"Fraunces","Noto Serif SC",Georgia,serif;
+  --sans:"Manrope","Noto Sans SC",-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--paper);line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html[lang="zh"] body{line-height:1.85}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.06;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+button{font:inherit;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 40px}
+.serif{font-family:var(--serif)}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .35s,color .35s,box-shadow .35s;color:#fff}
+nav.solid{background:rgba(245,240,232,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);box-shadow:0 1px 0 var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:72px;gap:20px}
+.brand{font-family:var(--serif);font-size:1.35rem;font-weight:400;text-decoration:none;letter-spacing:-.01em;white-space:nowrap}
+.brand em{font-style:italic;color:var(--accent)}
+.links{display:flex;gap:26px;list-style:none}
+.links a{text-decoration:none;font-size:.82rem;font-weight:500;letter-spacing:.02em;opacity:.8;white-space:nowrap}
+.links a:hover{opacity:1}
+.nav-r{display:flex;gap:10px;align-items:center}
+.pill{border:1px solid currentColor;background:transparent;border-radius:999px;padding:7px 16px;font-size:.8rem;font-weight:600;cursor:pointer;white-space:nowrap}
+.pill:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.menu-btn{display:none}
+@media (max-width:1140px){
+  .links{display:none;position:absolute;top:72px;left:0;right:0;flex-direction:column;gap:0;background:var(--paper);color:var(--ink);padding:8px 24px 18px;box-shadow:0 14px 30px rgba(0,0,0,.08)}
+  .links.open{display:flex}
+  .links a{display:block;padding:12px 0;border-bottom:1px solid var(--line);font-size:1rem;opacity:1}
+  .menu-btn{display:inline-block}
+}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;color:#fff;display:flex;align-items:flex-end;overflow:hidden;background:#222}
+.hero-bg{position:absolute;inset:0;background:center 35%/cover no-repeat;transform:scale(1.04);animation:slowzoom 18s ease-out forwards}
+@keyframes slowzoom{to{transform:scale(1)}}
+.hero::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,10,12,.45) 0%,rgba(10,10,12,.05) 30%,rgba(10,10,12,.35) 60%,rgba(10,10,12,.88) 100%)}
+.hero::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(10,10,12,.72) 0%,rgba(10,10,12,.35) 40%,rgba(10,10,12,0) 65%)}
+@media (min-width:821px){.hero-bg{background-position:72% 35%}}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-bottom:44px}
+.hero h1,.hero .tag{text-shadow:0 2px 24px rgba(0,0,0,.35)}
+html[lang="zh"] .label h2{font-size:1.65rem;word-break:keep-all}
+html[lang="zh"] .feature h2{font-size:clamp(2rem,3.8vw,3.1rem);letter-spacing:0;line-height:1.25;word-break:keep-all}
+html[lang="zh"] footer h2{letter-spacing:0;word-break:keep-all}
+.kicker{font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
+.hero .kicker{opacity:.85}
+.hero h1{font-family:var(--serif);font-weight:300;font-size:clamp(3.6rem,11vw,9.5rem);line-height:.92;letter-spacing:-.035em;margin:18px 0 0}
+.hero h1 em{font-style:italic;font-weight:300}
+.hero .cn{font-family:"Noto Serif SC",serif;font-size:1.2rem;opacity:.85;margin-top:12px}
+.hero .tag{max-width:560px;font-size:1.12rem;opacity:.9;margin-top:22px}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:48px;border-top:1px solid rgba(255,255,255,.28)}
+.hero-stats div{padding:18px 18px 0 0}
+.hero-stats div+div{padding-left:18px;border-left:1px solid rgba(255,255,255,.18)}
+.hero-stats b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1}
+.hero-stats small{display:block;font-size:.78rem;opacity:.78;margin-top:8px;line-height:1.4}
+.scroll-cue{position:absolute;right:40px;bottom:44px;z-index:2;writing-mode:vertical-rl;font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;opacity:.7}
+@media (max-width:820px){.hero-stats{grid-template-columns:1fr 1fr}.hero-stats div:nth-child(3){padding-left:0;border-left:0}.hero-stats div:nth-child(n+3){border-top:1px solid rgba(255,255,255,.18);margin-top:14px}.scroll-cue{display:none}}
+
+/* ---------- marquee ---------- */
+.marquee{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;padding:16px 0;border-bottom:1px solid #000}
+.marquee .track{display:inline-flex;animation:mq 40s linear infinite}
+.marquee span{font-family:var(--serif);font-style:italic;font-size:1.25rem;padding:0 22px}
+.marquee span.dot{color:var(--accent);font-style:normal;padding:0}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:120px 0;position:relative}
+.row{display:grid;grid-template-columns:240px 1fr;gap:64px}
+.label{position:sticky;top:110px;align-self:start}
+.label .num{font-family:var(--serif);font-size:.95rem;color:var(--accent);font-style:italic}
+.label h2{font-family:var(--serif);font-weight:400;font-size:1.9rem;line-height:1.15;letter-spacing:-.01em;margin-top:6px}
+.label p{color:var(--muted);font-size:.9rem;margin-top:12px}
+@media (max-width:900px){.row{grid-template-columns:1fr;gap:28px}.label{position:static}section{padding:80px 0}.wrap{padding:0 20px}}
+
+/* intro */
+.statement{font-family:var(--serif);font-weight:300;font-size:clamp(1.7rem,3.2vw,2.6rem);line-height:1.3;letter-spacing:-.015em}
+html[lang="zh"] .statement{font-weight:400;font-size:clamp(1.45rem,2.6vw,2.1rem);line-height:1.6;letter-spacing:0}
+.statement em{font-style:italic;color:var(--accent)}
+.headshot{display:block;width:100%;max-width:240px;aspect-ratio:900/1420;object-fit:cover;border-radius:16px;margin-top:28px;box-shadow:0 18px 40px rgba(22,23,27,.18)}
+@media (max-width:900px){.headshot{max-width:200px;margin-top:20px}}
+.intro-body{columns:2;column-gap:44px;margin-top:44px;color:var(--ink-2)}
+.intro-body p{margin-bottom:16px;break-inside:avoid}
+.facts{display:grid;grid-template-columns:repeat(5,1fr);margin-top:52px;border-top:1px solid var(--ink)}
+.facts div{padding:16px 16px 0 0}
+.facts dt{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.facts dd{font-weight:600;margin-top:4px;font-size:.95rem}
+@media (max-width:900px){.intro-body{columns:1}.facts{grid-template-columns:1fr 1fr}.facts div{padding-bottom:12px}}
+
+/* robotics (dark) */
+.dark{background:var(--night);color:#ece7de}
+.dark .label p{color:#9b978f}
+.big-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.16);border-bottom:1px solid rgba(255,255,255,.16)}
+.big-stats div{padding:30px 20px 26px 0}
+.big-stats div+div{padding-left:22px;border-left:1px solid rgba(255,255,255,.12)}
+.big-stats b{display:block;font-family:var(--serif);font-weight:300;font-size:clamp(3rem,6vw,5.2rem);line-height:.95;color:#fff;letter-spacing:-.03em}
+.big-stats b sup{font-size:.4em;color:var(--accent);margin-left:2px;vertical-align:top;position:relative;top:.3em}
+.big-stats small{display:block;font-size:.82rem;color:#a9a59c;margin-top:12px;line-height:1.4}
+.big-stats small .ln{display:block}.big-stats small .ln+.ln{white-space:nowrap}
+.big-stats{grid-template-columns:minmax(0,1fr) minmax(0,1fr) max-content max-content}
+.role{margin:30px 0 8px;font-size:.88rem;color:#b9b4aa}
+.role b{color:#fff;font-weight:600}
+.seasons{margin-top:24px}
+.season{display:grid;grid-template-columns:120px 220px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.season .yr{font-family:var(--serif);font-size:1.6rem;color:#fff;line-height:1.2}
+.season .team{font-weight:700;color:#fff;font-size:.95rem;letter-spacing:.02em}
+.season .div{font-size:.78rem;color:#8f8b83;margin-top:2px}
+.season ul{list-style:none}
+.season li{padding:3px 0;color:#d8d3c9}
+.season li strong{color:#fff;font-weight:600}
+@media (max-width:820px){.big-stats{grid-template-columns:1fr 1fr}.big-stats div:nth-child(3){padding-left:0;border-left:0}.big-stats div:nth-child(n+3){border-top:1px solid rgba(255,255,255,.12)}.big-stats div:nth-child(n+3){grid-column:1/-1;padding-left:0;border-left:0}.season{grid-template-columns:1fr;gap:6px}}
+
+/* editorial entry rows */
+.entries{border-top:1px solid var(--ink)}
+.entry{display:grid;grid-template-columns:150px 1fr auto;gap:28px;padding:30px 0;border-bottom:1px solid var(--line);transition:background .3s}
+.entry .when{font-size:.82rem;color:var(--muted);font-weight:600;padding-top:6px}
+.entry h3{font-family:var(--serif);font-weight:400;font-size:1.6rem;line-height:1.2;letter-spacing:-.01em}
+.entry ul{list-style:none;margin-top:10px;color:var(--ink-2)}
+.entry li{padding:3px 0 3px 18px;position:relative}
+.entry li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+.tagx{align-self:start;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);border-radius:999px;padding:5px 12px;white-space:nowrap;margin-top:6px}
+.tagcol{align-self:start;display:flex;flex-direction:column;align-items:flex-end;gap:8px;margin-top:6px}.tagcol .tagx{margin-top:0;align-self:flex-end}
+@media (max-width:820px){.entry{grid-template-columns:1fr;gap:6px}.entry .when{padding-top:0}.tagx{justify-self:start;margin-top:10px}.tagcol{justify-self:start;align-items:flex-start;margin-top:10px}.tagcol .tagx{align-self:flex-start}}
+
+/* feature: FIFA */
+.feature{background:var(--paper-2)}
+.feature-grid{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:72px;align-items:center}
+.vframe{position:relative;border:0;padding:0;cursor:pointer;display:block;width:100%;overflow:hidden;background:#000;border-radius:2px;box-shadow:0 30px 60px -20px rgba(0,0,0,.35)}
+.vframe img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.vframe:hover img{transform:scale(1.03)}
+.vframe.portrait{aspect-ratio:9/16}
+.vframe.wide{aspect-ratio:16/9}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:78px;height:78px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.3);transition:transform .25s}
+.play::after{content:"";border-left:20px solid var(--ink);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+.vframe:hover .play{transform:translate(-50%,-50%) scale(1.08)}
+.vlabel{position:absolute;left:16px;bottom:14px;color:#fff;font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.feature h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.02;letter-spacing:-.03em;margin:16px 0 22px}
+.feature h2 em{font-style:italic;color:var(--accent)}
+.feature p{color:var(--ink-2);font-size:1.05rem;max-width:520px}
+.feature .meta{margin-top:28px;display:flex;gap:36px;flex-wrap:wrap}
+.feature .meta div{border-top:1px solid var(--ink);padding-top:10px;min-width:140px}
+.feature .meta small{display:block;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.feature .meta b{font-weight:600}
+.feature .kicker{color:var(--accent)}
+@media (max-width:820px){.feature-grid{grid-template-columns:1fr;gap:40px}.vframe.portrait{max-width:300px;margin:0 auto}}
+
+/* arts */
+.cinema{margin-bottom:48px}
+.cinema .vframe{box-shadow:none}
+.cinema-cap{display:flex;justify-content:space-between;gap:20px;margin-top:14px;font-size:.85rem;color:var(--muted)}
+.cinema-cap b{color:var(--ink);font-weight:600}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px}
+.j{padding:28px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:110px 1fr;gap:20px}
+.j .y{font-family:var(--serif);font-weight:300;font-size:2.4rem;line-height:1;letter-spacing:-.03em}
+.j .y small{display:block;font-family:var(--sans);font-size:.72rem;color:var(--muted);letter-spacing:.04em;margin-top:8px;font-weight:500}
+.j h3{font-weight:700;font-size:1rem;margin-bottom:6px}
+.j p{color:var(--ink-2);font-size:.95rem}
+.j.key .y{color:var(--accent);font-style:italic}
+@media (max-width:820px){.journey{grid-template-columns:1fr}.j{grid-template-columns:84px 1fr}.j .y{font-size:2rem}}
+
+/* honors */
+.honors{border-top:1px solid var(--ink)}
+.hy{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:26px 0;border-bottom:1px solid var(--line)}
+.hy>.yr{font-family:var(--serif);font-weight:300;font-size:2.2rem;line-height:1;letter-spacing:-.02em}
+.h{display:flex;justify-content:space-between;gap:20px;padding:8px 0;align-items:baseline}
+.h+.h{border-top:1px dashed var(--line)}
+.h .t{font-weight:600}
+.h .t small{display:block;color:var(--muted);font-weight:400;font-size:.88rem}
+.h .lv{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.h.top .t{color:var(--ink)}
+.h.top .lv{color:#fff;background:var(--accent);border-radius:999px;padding:3px 10px}
+.watch{display:inline-flex;align-items:center;gap:6px;margin-top:8px;border:0;background:none;color:var(--accent);font-weight:700;font-size:.82rem;cursor:pointer;padding:0}
+.watch:hover{text-decoration:underline}
+@media (max-width:620px){.hy{grid-template-columns:1fr;gap:8px}.h{flex-direction:column;gap:4px}}
+
+/* press */
+.press{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--ink)}
+.news{display:flex;flex-direction:column;gap:8px;padding:28px 28px 28px 0;text-decoration:none;border-bottom:1px solid var(--line);min-height:190px}
+.news+.news{padding-left:28px;border-left:1px solid var(--line)}
+.news .src{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700}
+.news h3{font-family:var(--serif);font-weight:400;font-size:1.45rem;line-height:1.25}
+.news .go{margin-top:auto;font-size:.82rem;font-weight:600;color:var(--muted)}
+a.news:hover h3{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:4px}
+.news .acts{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+.news .acts .vbtn{margin-top:0}
+.news:nth-child(3n+1){padding-left:0;border-left:0}
+@media (max-width:820px){.press{grid-template-columns:1fr}.news,.news+.news{padding:24px 0;border-left:0;min-height:0}}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.gallery figure{position:relative;overflow:hidden;aspect-ratio:4/5;background:var(--paper-2)}
+.gallery figure:nth-child(3n+1){aspect-ratio:4/5}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:30px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.6));color:#fff;font-size:.82rem}
+@media (max-width:820px){.gallery{grid-template-columns:1fr 1fr;gap:8px}}
+
+/* footer */
+footer{background:var(--night);color:#ece7de;padding:130px 0 40px}
+footer h2{font-family:var(--serif);font-weight:300;font-size:clamp(2.6rem,7vw,6rem);line-height:1;letter-spacing:-.035em}
+footer h2 em{font-style:italic;color:var(--accent)}
+footer p{color:#a9a59c;margin-top:18px;max-width:520px}
+footer .mail{display:inline-block;margin-top:36px;font-family:var(--serif);font-size:clamp(1.3rem,3vw,2rem);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:4px}
+footer .mail:hover{color:#fff}
+.foot-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:110px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;color:#7d7970}
+
+/* flag football block */
+.field{margin-top:64px;padding-top:36px;border-top:1px solid var(--line)}
+.field-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.field-head .kicker{color:var(--accent)}
+#fieldNote{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:1.05rem}
+.field .cinema{margin-bottom:0}
+.mosaic{display:grid;gap:14px;margin-top:14px}
+.mosaic.m1{grid-template-columns:2fr 1fr}
+.mosaic.m2{grid-template-columns:1fr 1fr}
+.ph{position:relative;border:0;padding:0;cursor:zoom-in;overflow:hidden;background:#ddd;border-radius:2px;display:block;width:100%}
+.mosaic.m1 .ph:first-child{aspect-ratio:4/3}
+.mosaic.m1 .ph:last-child img{position:absolute;inset:0}
+.mosaic.m2 .ph{aspect-ratio:4/3}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s}
+.ph:hover img{transform:scale(1.04)}
+.phcap{position:absolute;left:14px;bottom:12px;color:#fff;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+@media (max-width:640px){.mosaic{gap:8px;margin-top:8px}.phcap{display:none}.field .cinema-cap span:last-child{display:none}}
+
+/* robotics media */
+.vframe.ultra{aspect-ratio:1920/884}
+.robo-media{margin:44px 0 20px}
+.robo-media .cinema{margin-bottom:0}
+.comp{padding:30px 0 34px;border-top:1px solid rgba(255,255,255,.12)}
+.comp:first-child{border-top:0;padding-top:0}
+.comp-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.comp-head .kicker{color:var(--accent)}
+.comp-head span:last-child{font-family:var(--serif);font-style:italic;color:#ece7de;font-size:1.05rem}
+.comp-grid{display:grid;grid-template-columns:2.15fr 1fr;gap:16px;align-items:start}
+.comp-grid .ph{aspect-ratio:1/1}
+@media (max-width:820px){.comp-grid{grid-template-columns:1fr}.comp-grid .ph{aspect-ratio:4/3}}
+.dark .cinema-cap{color:#9b978f}
+.dark .cinema-cap b{color:#fff}
+.robo-media figure,.emedia{margin:0}
+.robo-media figcaption,.emedia figcaption{font-size:.82rem;color:#9b978f;margin-top:10px;line-height:1.5}
+.egal{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.egal .ph{aspect-ratio:3/4;border-radius:10px}
+@media (max-width:820px){.egal{grid-template-columns:1fr 1fr;gap:8px}}
+.dark .ph{background:#222}
+/* photo inside an entry (certificate, poster) */
+.emedia{margin-top:18px;max-width:230px}
+.emedia .ph{aspect-ratio:auto;box-shadow:0 14px 30px -14px rgba(0,0,0,.35)}
+.emedia .ph img{height:auto}
+.emedia figcaption{color:var(--muted)}
+
+/* video inside an entry (Nixon speech) */
+.evideo{margin:20px 0 0;max-width:520px}
+.evideo .vframe{box-shadow:0 18px 40px -18px rgba(0,0,0,.4)}
+.evideo .play{width:60px;height:60px}
+.evideo figcaption{font-size:.82rem;color:var(--muted);margin-top:10px;line-height:1.5}
+/* video thumbnail inside Honors (Arcadia commendation) */
+.hthumb{max-width:340px;margin-top:12px}
+.hthumb .play{width:52px;height:52px}
+.hthumb .vlabel{font-size:.7rem}
+
+/* lightbox */
+#lbImg{max-width:100%;max-height:100%;object-fit:contain}
+#lbImg[hidden],#lbVideo[hidden]{display:none}
+#lightbox{position:fixed;inset:0;z-index:2000;background:#000;display:flex;align-items:center;justify-content:center}
+#lightbox[hidden]{display:none}
+#lbVideo{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;background:transparent}
+#lbBg{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);object-fit:cover;filter:blur(36px) brightness(.55);display:none;pointer-events:none}
+#lightbox.portrait #lbBg{display:block}
+#lbClose{position:absolute;top:max(16px,env(safe-area-inset-top));right:16px;z-index:2;width:46px;height:46px;border-radius:50%;border:0;background:rgba(255,255,255,.16);color:#fff;font-size:1.2rem;cursor:pointer}
+#lbClose:hover{background:rgba(255,255,255,.32)}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}.hero-bg,.marquee .track{animation:none}}
+@media print{nav,.marquee,#lightbox{display:none}.rv{opacity:1;transform:none}}
+/* Watch-video buttons */
+.vbtn{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:10px 18px 10px 10px;border:1px solid var(--accent);border-radius:999px;background:transparent;color:var(--ink);font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;transition:background .2s,color .2s,transform .2s}
+.vbtn .vic{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;font-size:.68rem;padding-left:2px}
+.vbtn .vdur{color:var(--muted);font-weight:500;font-variant-numeric:tabular-nums}
+.vbtn .vdur::before{content:"·";margin-right:10px;color:var(--muted)}
+.vbtn:hover{background:var(--accent);color:#fff;transform:translateY(-1px)}
+.vbtn:hover .vdur,.vbtn:hover .vdur::before{color:rgba(255,255,255,.85)}
+.vbtn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.vbtn.big{margin-top:30px;font-size:.95rem;padding:12px 22px 12px 12px}
+.vbtn.big .vic{width:34px;height:34px}
+.vbtn.sm{margin-top:10px;padding:6px 14px 6px 6px;font-size:.8rem;gap:8px}
+.vbtn.sm .vic{width:22px;height:22px;font-size:.58rem}
+.vbtn.sm .vdur::before{margin-right:8px}
+.dark .vbtn{color:#fff}
+.dark .vbtn .vdur,.dark .vbtn .vdur::before{color:#9b978f}
+.feature-grid.solo{grid-template-columns:1fr}
+.cinema{display:flex;flex-direction:column}
+.cinema .cinema-cap{order:1;margin-top:0}
+.cinema .vbtn{order:2;align-self:flex-start;margin-top:16px}
+.evideo{max-width:none}
+.evideo figcaption{margin-top:0}
+.comp-grid{grid-template-columns:1fr 1fr;align-items:start;gap:32px}
+.comp-grid .ph{aspect-ratio:4/3}
+.comp-grid .cinema-cap{font-size:.95rem;line-height:1.6}
+@media (max-width:820px){.comp-grid{grid-template-columns:1fr;gap:20px}}
+.vbtn{white-space:nowrap}
+/* newspaper coverage */
+.papers-head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap;margin:64px 0 20px;padding-top:28px;border-top:1px solid var(--ink)}
+.papers-head .kicker{color:var(--accent)}
+.papers-note{font-size:.82rem;color:var(--muted)}
+.papers{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:28px 20px}
+.paper{display:flex;flex-direction:column;gap:8px;text-align:left;border:0;background:none;padding:0;cursor:pointer;font:inherit;color:inherit}
+.pthumb{display:block;aspect-ratio:3/4;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:0 14px 30px -18px rgba(0,0,0,.35)}
+.pthumb img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .5s}
+.paper:hover .pthumb img{transform:scale(1.04)}
+.psrc{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-top:4px}
+.ptitle{font-family:var(--serif);font-size:1.02rem;line-height:1.3}
+.paper:hover .ptitle{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:640px){.papers{grid-template-columns:1fr 1fr;gap:22px 14px}.ptitle{font-size:.92rem}}
+/* tall pages scroll in the viewer */
+#lightbox.tall{display:block;overflow-y:auto;-webkit-overflow-scrolling:touch}
+#lightbox.tall #lbImg{display:block;width:min(100%,1100px);max-width:none;max-height:none;height:auto;margin:0 auto}
+#lightbox.tall #lbClose{position:fixed}
+.elinks{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.elinks .vbtn{margin-top:0}
+.plinks{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 2px}
+.plinks .vbtn{margin-top:0}
+a.vbtn{text-decoration:none}
+.vbtn.big+.vbtn.big{margin-left:10px}
+@media (max-width:640px){.vbtn.big+.vbtn.big{margin-left:0}}
+
+/* ---------- pages ---------- */
+body.paged [data-page]:not(.on){display:none!important}
+body.paged section.first{padding-top:170px}
+@media (max-width:900px){body.paged section.first{padding-top:130px}}
+body.paged .label .num{display:none}
+.links a.active{opacity:1;color:var(--accent)}
+.pagenext{max-width:1240px;margin:0 auto;padding:0 40px 90px}
+.pagenext a{display:flex;flex-direction:column;gap:6px;align-items:flex-end;text-decoration:none;color:var(--ink);border-top:1px solid var(--line);padding-top:28px}
+.pagenext small{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.pagenext span{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;transition:color .25s}
+.pagenext a:hover span{color:var(--accent)}
+@media (max-width:900px){.pagenext{padding:0 20px 64px}}
+/* ---------- highlight cards ---------- */
+#highlights{padding-bottom:40px}
+.hl-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin-top:12px}
+.hl-head .kicker{color:var(--accent)}
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px}
+.hl{display:flex;flex-direction:column;text-decoration:none;color:var(--ink);background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .35s,box-shadow .35s}
+.hl:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.1)}
+.hl-img{aspect-ratio:4/3;overflow:hidden;background:#222}
+.hl-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.hl:hover .hl-img img{transform:scale(1.04)}
+.hl-body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.hl-k{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.hl h3{font-family:var(--serif);font-weight:400;font-size:1.35rem;line-height:1.2}
+.hl p{font-size:.9rem;color:var(--muted);line-height:1.5}
+.hl-go{margin-top:auto;padding-top:10px;font-size:.82rem;font-weight:600}
+@media (max-width:900px){.hl-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+@media (max-width:560px){.hl-grid{grid-template-columns:1fr;gap:12px;margin-top:24px}.hl{flex-direction:row;border-radius:12px}.hl-img{width:36%;flex:none;aspect-ratio:auto;min-height:128px;position:relative}.hl-img img{position:absolute;inset:0}.hl-body{padding:12px 14px;gap:4px}.hl h3{font-size:1.05rem}.hl p{font-size:.78rem;line-height:1.4}.hl-k{font-size:.62rem}.hl-go{display:none}}
+</style>
+</head>
+<body>
+
+<nav id="nav"><div class="wrap">
+  <a class="brand" href="#top">Atticus <em>Guo</em></a>
+  <ul class="links" id="navlinks"></ul>
+  <div class="nav-r">
+    <button class="pill" id="langBtn">中文</button>
+    <button class="pill menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+  </div>
+</div></nav>
+
+<header class="hero" id="top" data-page="home">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="wrap">
+    <div class="kicker" data-t="hero.kicker"></div>
+    <h1>Atticus <em>Guo</em></h1>
+    <div class="cn" id="cnName"></div>
+    <p class="tag" data-t="hero.tagline"></p>
+    <div class="hero-stats" id="heroStats"></div>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<div class="marquee" aria-hidden="true" data-page="home"><div class="track" id="marquee"></div></div>
+
+<!-- Highlights (home page cards) -->
+<section id="highlights" data-page="home"><div class="wrap">
+  <div class="hl-head rv"><div class="kicker" data-t="hl.kicker"></div><h2 data-t="hl.title"></h2></div>
+  <div class="hl-grid" id="hlGrid"></div>
+</div></section>
+
+<!-- 01 About -->
+<section id="about" data-page="about"><div class="wrap row">
+  <div class="label rv"><div class="num">01</div><h2 data-t="about.title"></h2><img class="headshot" src="photos/portrait.jpg" alt="Atticus Guo"></div>
+  <div>
+    <p class="statement rv" id="statement"></p>
+    <div class="intro-body rv" id="aboutText"></div>
+    <dl class="facts rv" id="facts"></dl>
+  </div>
+</div></section>
+
+<!-- 02 Robotics -->
+<section id="robotics" class="dark" data-page="robotics"><div class="wrap row">
+  <div class="label rv"><div class="num">02</div><h2 data-t="robotics.title"></h2><p data-t="robotics.sub"></p></div>
+  <div>
+    <div class="big-stats rv" id="bigStats"></div>
+    <p class="role rv" id="role"></p>
+    <div class="robo-media">
+      <div class="comp rv">
+        <div class="comp-head"><span class="kicker">VEX Robotics World Championship · 2025</span><span id="worldsTag"></span></div>
+        <div class="comp-grid">
+          <div class="cinema">
+            <button class="vbtn" data-video="videos/vex-worlds-2025.mp4"><span class="vic">▶</span><span data-t="watch"></span><span class="vdur">2:22</span></button>
+            <div class="cinema-cap"><span id="worldsCap"></span></div>
+          </div>
+          <figure><button class="ph" data-img="photos/vex-worlds-2025.jpg"><img src="photos/vex-worlds-2025.jpg" alt="956A SUPERDRACO at the 2025 VEX Robotics World Championship" loading="lazy"></button><figcaption id="capSuperdraco"></figcaption></figure>
+        </div>
+      </div>
+      <div class="comp rv">
+        <div class="comp-head"><span class="kicker">CREATE U.S. Open · 2024</span><span id="usopenTag"></span></div>
+        <div class="comp-grid">
+          <div class="cinema">
+            <button class="vbtn" data-video="videos/us-open-2024.mp4"><span class="vic">▶</span><span data-t="watch"></span><span class="vdur">0:40</span></button>
+            <div class="cinema-cap"><span id="usopenCap"></span></div>
+          </div>
+          <figure><button class="ph" data-img="photos/robokids-trophy.jpg"><img src="photos/robokids-trophy.jpg" alt="296A ROBOKIDS raising the 2024 CREATE U.S. Open National Champion trophy" loading="lazy" style="object-position:50% 30%"></button><figcaption id="capRobokids"></figcaption></figure>
+        </div>
+      </div>
+      <div class="comp rv">
+        <div class="comp-head"><span class="kicker">VEX Robotics World Championship · 2023</span><span id="worlds23Tag"></span></div>
+        <div class="comp-grid">
+          <div class="cinema">
+            <div class="cinema-cap"><span id="worlds23Cap"></span></div>
+            <figure style="margin-top:22px"><button class="ph" data-img="photos/vex-worlds-2023-seoul.jpg"><img src="photos/vex-worlds-2023-seoul.jpg" alt="296A Robokids with the team from Seoul, South Korea at the 2023 VEX Robotics World Championship" loading="lazy"></button><figcaption id="capSeoul23"></figcaption></figure>
+          </div>
+          <figure><button class="ph" data-img="photos/vex-worlds-2023.jpg" style="aspect-ratio:3/4"><img src="photos/vex-worlds-2023.jpg" alt="Atticus and Mars Zhang with the Division 3rd Place trophy at the 2023 VEX Robotics World Championship" loading="lazy" style="object-position:50% 70%"></button><figcaption id="capWorlds23"></figcaption></figure>
+        </div>
+      </div>
+      <div class="comp rv">
+        <div class="comp-head"><span class="kicker">CREATE U.S. Open · 2023</span><span id="usopen23Tag"></span></div>
+        <div class="comp-grid">
+          <div class="cinema">
+            <div class="cinema-cap"><span id="usopen23Cap"></span></div>
+          </div>
+          <figure><button class="ph" data-img="photos/us-open-2023.jpg"><img src="photos/us-open-2023.jpg" alt="Atticus and Mars Zhang with the 2023 CREATE U.S. Open Robotics Championship Skills Champion trophy" loading="lazy" style="object-position:50% 40%"></button><figcaption id="capUsopen23"></figcaption></figure>
+        </div>
+      </div>
+    </div>
+    <div class="seasons" id="seasons"></div>
+  </div>
+</div></section>
+
+<!-- 03 Innovation -->
+<section id="innovation" data-page="innovation"><div class="wrap row">
+  <div class="label rv"><div class="num">03</div><h2 data-t="innovation.title"></h2><p data-t="innovation.sub"></p></div>
+  <div class="entries" id="innovationList"></div>
+</div></section>
+
+<!-- Feature: FIFA -->
+<section id="fifa" class="feature" data-page="leadership"><div class="wrap feature-grid solo">
+  <div class="rv">
+    <div class="kicker" data-t="fifa.kicker"></div>
+    <h2 id="fifaTitle"></h2>
+    <p data-t="fifa.text"></p>
+    <div class="meta" id="fifaMeta"></div>
+    <button class="vbtn big" data-video="videos/fifa-flag-bearer.mp4"><span class="vic">▶</span><span data-t="watch"></span><span class="vdur">0:35</span></button>
+    <a class="vbtn big" href="https://lapost.us/?p=82336" target="_blank" rel="noopener"><span class="vic">↗</span><span data-t="fifa.article"></span></a>
+  </div>
+</div></section>
+
+<!-- 04 Leadership -->
+<section id="leadership" data-page="leadership"><div class="wrap row">
+  <div class="label rv"><div class="num">04</div><h2 data-t="leadership.title"></h2><p data-t="leadership.sub"></p></div>
+  <div class="entries" id="leadershipList"></div>
+</div></section>
+
+<!-- 05 Arts & Athletics -->
+<section id="arts" class="feature" data-page="arts"><div class="wrap row">
+  <div class="label rv"><div class="num">05</div><h2 data-t="arts.title"></h2><p data-t="arts.sub"></p></div>
+  <div>
+    <div class="entries" id="artsList"></div>
+    <div class="field rv">
+      <div class="field-head"><span class="kicker">Flag Football · Barnhart Bobcats</span><span id="fieldNote"></span></div>
+      <div class="cinema">
+        <button class="vbtn" data-video="videos/flag-touchdown.mp4"><span class="vic">▶</span><span data-t="watch"></span><span class="vdur">0:43</span></button>
+        <div class="cinema-cap"><span id="tdCap"></span><span>Barnhart Bobcats</span></div>
+      </div>
+      <div class="mosaic m1">
+        <button class="ph" data-img="photos/flag-4.jpg"><img src="photos/flag-4.jpg" alt="Barnhart Bobcats flag football team" loading="lazy"><span class="phcap" id="teamCap"></span></button>
+        <button class="ph" data-img="photos/flag-1.jpg"><img src="photos/flag-1.jpg" alt="Atticus carrying the ball" loading="lazy" style="object-position:58% 55%"></button>
+      </div>
+      <div class="mosaic m2">
+        <button class="ph" data-img="photos/flag-3.jpg"><img src="photos/flag-3.jpg" alt="Atticus with the ball" loading="lazy" style="object-position:40% 30%"></button>
+        <button class="ph" data-img="photos/flag-2.jpg"><img src="photos/flag-2.jpg" alt="Atticus, number 32, on the run" loading="lazy" style="object-position:60% 40%"></button>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 06 Academics -->
+<section id="academics" data-page="innovation"><div class="wrap row">
+  <div class="label rv"><div class="num">06</div><h2 data-t="academics.title"></h2></div>
+  <div class="entries" id="academicsList"></div>
+</div></section>
+
+<!-- 07 Journey -->
+<section id="journey" class="feature" data-page="journey"><div class="wrap row">
+  <div class="label rv"><div class="num">07</div><h2 data-t="journey.title"></h2><p data-t="journey.sub"></p></div>
+  <div class="journey" id="timeline"></div>
+</div></section>
+
+<!-- 08 Honors -->
+<section id="honors" data-page="honors"><div class="wrap row">
+  <div class="label rv"><div class="num">08</div><h2 data-t="honors.title"></h2></div>
+  <div class="honors" id="honorList"></div>
+</div></section>
+
+<!-- 09 Press -->
+<section id="press" class="feature" data-page="press"><div class="wrap row">
+  <div class="label rv"><div class="num">09</div><h2 data-t="press.title"></h2></div>
+  <div>
+    <div class="press" id="pressList"></div>
+    <div class="papers-head rv"><span class="kicker" data-t="papers.title"></span><span class="papers-note" data-t="papers.note"></span></div>
+    <div class="papers" id="paperList"></div>
+  </div>
+</div></section>
+
+<!-- Gallery (只在有照片时显示) -->
+<section id="gallery" hidden><div class="wrap row">
+  <div class="label rv"><div class="num">10</div><h2 data-t="gallery.title"></h2></div>
+  <div class="gallery" id="galleryGrid"></div>
+</div></section>
+
+<div class="pagenext" id="pageNext"></div>
+
+<footer id="contact"><div class="wrap">
+  <div class="kicker" style="color:var(--accent)" data-t="contact.kicker"></div>
+  <h2 id="footTitle" style="margin-top:18px"></h2>
+  <p data-t="contact.text"></p>
+  <a class="mail" id="email" href="#"></a>
+  <div class="foot-bottom"><span>© 2026 Atticus Guo</span><span>Arcadia, California</span></div>
+</div></footer>
+
+<div id="lightbox" hidden>
+  <button id="lbClose" aria-label="Close">✕</button>
+  <video id="lbBg" muted playsinline aria-hidden="true"></video>
+  <video id="lbVideo" controls playsinline></video>
+  <img id="lbImg" alt="" hidden>
+</div>
+
+<script>
+/* ==================================================================
+   内容编辑区 CONTENT —— 每项都有 en（英文）和 zh（中文）
+   ================================================================== */
+const SITE = {
+  cnName: "",                              // 中文名，留空则不显示
+  email: "guoatticus@gmail.com",
+  heroImage: "photos/drums-poster.jpg",    // 首页大图，可换成 photos/ 里任何照片
+
+  marquee: {
+    en: ["Robotics", "Artificial Intelligence", "Competitive Programming", "Drums", "Saber Fencing", "Flag Football", "Service"],
+    zh: ["机器人", "人工智能", "算法竞赛", "架子鼓", "佩剑击剑", "腰旗橄榄球", "公益服务"],
+  },
+
+  highlights: [
+    { page: "robotics", img: "photos/vex-worlds-2025.jpg", k: { en: "Robotics", zh: "机器人" }, t: { en: "Robot Skills World 2nd Place", zh: "机器人技能赛世界第二名" }, d: { en: "2025 VEX Robotics World Championship · 4× California State Champion", zh: "2025 VEX 机器人世锦赛 · 四次加州州冠军" } },
+    { page: "innovation", img: "photos/code-ai-card.jpg", pos: "center 30%", k: { en: "Code & AI", zh: "编程与 AI" }, t: { en: "Google IgniteCS 1st Place", zh: "Google IgniteCS 一等奖" }, d: { en: "AI learning app for autism support, U.S. patent pending · USACO Gold Division", zh: "自闭症支持 AI 学习应用，美国专利申请中 · USACO 金级" } },
+    { page: "leadership", img: "photos/fifa-poster.jpg", pos: "center 35%", k: { en: "Leadership", zh: "领导力" }, t: { en: "Lead FIFA Flag Bearer", zh: "FIFA 首席旗手" }, d: { en: "2026 FIFA World Cup Bronze Final, Miami", zh: "2026 FIFA 世界杯季军赛，迈阿密" } },
+    { page: "leadership", img: "photos/nixon-3-podium.jpg", pos: "center 30%", k: { en: "Service", zh: "公共服务" }, t: { en: "Presidential Youth Ambassador", zh: "总统青年大使" }, d: { en: "Richard Nixon Foundation · June 2026", zh: "理查德·尼克松基金会 · 2026 年 6 月" } },
+    { page: "arts", img: "photos/drums-poster.jpg", k: { en: "Music", zh: "音乐" }, t: { en: "Drummer since 2018", zh: "自 2018 年起打鼓" }, d: { en: "1st Place, CCTV Global Youth Instrument Competition (Overseas Division) · RSL Grade 6, Merit", zh: "央视全球青少年器乐大赛海外组第一名 · RSL 六级 Merit" } },
+    { page: "arts", img: "photos/aff-2019-award.jpg", k: { en: "Screen & Stage", zh: "影视与舞台" }, t: { en: "Best Child Actor, 2019 Asian Film Festival", zh: "2019 亚洲电影节最佳儿童演员" }, d: { en: "Three more film awards in 2019 · Times Square billboard (Nov 2022)", zh: "2019 年另获三项电影奖 · 登上时代广场大屏（2022 年 11 月）" } },
+  ],
+  stats: [
+    { n: "4×", en: "California State Champion", zh: "加州州冠军" },
+    { n: "3×", en: "U.S. Open National Champion", zh: "美国公开赛全国冠军" },
+    { n: "2nd", en: "Robot Skills World 2nd Place\n2025 VEX Robotics World Championship", zh: "机器人技能赛世界第二名\n2025 VEX 机器人世界锦标赛" },
+    { n: "Gold", en: "USA Computing Olympiad", zh: "USACO 金级" },
+  ],
+
+  about: {
+    statement: { en: "I build robots, write code and play the drums. I care most about using technology to <em>help other people</em>.",
+                 zh: "我造机器人、写代码、打架子鼓。我最在乎的，是用科技<em>帮助身边的人</em>。" },
+    paragraphs: [
+      { en: "I'm Atticus, an eighth grader at Barnhart School in Arcadia, California. I wrote my first code in first grade, and that foundation led me to robotics at nine. Since then, I have spent countless hours designing, building, programming and driving competition robots and leading my teams to state, national and world podiums.",
+        zh: "我是 Atticus，目前就读于加州阿卡迪亚市 Barnhart 学校八年级。我从一年级开始学编程，正是这份基础让我九岁走进了机器人的世界。从那时起，我花了无数时间设计、搭建、编程和驾驶比赛机器人，并带领团队登上州、全国乃至世界的领奖台。" },
+      { en: "I came to believe that technology means the most when it helps people who are often left out. That belief led me to build an AI-powered learning app for children with autism, file my first patent, and start robotics clubs so that more kids including those who learn differently can discover the joy of building things.",
+        zh: "我逐渐相信，科技最有意义的时候，是它能帮助那些常被忽视的人。正是这个信念，让我为自闭症儿童开发了一款 AI 学习应用、提交了人生第一份专利申请，并创办机器人社团，让更多孩子，包括学习方式与众不同的孩子，体会到动手创造的快乐。" },
+      { en: "Outside the lab, I play drums, fence saber, play flag football and basketball for my school, and serve as a Presidential Youth Ambassador with the Richard Nixon Foundation.",
+        zh: "实验室之外，我打鼓、练习佩剑击剑、代表学校参加腰旗橄榄球和篮球比赛，同时担任理查德·尼克松基金会的总统青年大使。" },
+    ],
+    facts: [
+      { label: { en: "Age", zh: "年龄" }, value: { en: "13", zh: "13 岁" } },
+      { label: { en: "School", zh: "学校" }, value: { en: "Barnhart School · Grade 8", zh: "Barnhart 学校 · 八年级" } },
+      { label: { en: "Previously", zh: "曾就读" }, value: { en: "Clairbourn School", zh: "Clairbourn 学校" } },
+      { label: { en: "Hometown", zh: "家乡" }, value: { en: "Arcadia, California", zh: "加州阿卡迪亚市" } },
+      { label: { en: "Coding since", zh: "编程始于" }, value: { en: "Grade 1 · 2019", zh: "一年级 · 2019" } },
+    ],
+  },
+
+  robotics: {
+    big: [
+      { n: "4", s: "×", en: "California State Champion", zh: "加州州冠军" },
+      { n: "3", s: "×", en: "U.S. Open National Champion", zh: "美国公开赛全国冠军" },
+      { n: "2", s: "nd", en: "Robot Skills World 2nd Place\n2025 VEX Robotics World Championship", zh: "机器人技能赛世界第二名\n2025 VEX 机器人世界锦标赛" },
+      { n: "3", s: "rd", en: "Teamwork Division 3rd Place\n2023 & 2025 VEX Robotics World Championship", zh: "团队赛分区第三名\n2023 & 2025 VEX 机器人世界锦标赛" },
+    ],
+    role: { en: "<b>Team Captain · Programmer · Primary Driver · Designer & Builder</b> — VEX Robotics, Aug 2022 – Present",
+            zh: "<b>队长 · 程序员 · 主驾驶手 · 设计与搭建</b> —— VEX 机器人，2022 年 8 月至今" },
+  },
+
+  seasons: [
+    { yr: "2025–2026", div: { en: "Middle School Division", zh: "初中组" }, team: "9156A ALPHA FIVE",
+      wins: [ { en: "<strong>California State Champion</strong> · Mar 2026", zh: "<strong>加州州冠军</strong> · 2026 年 3 月" } ] },
+    { yr: "2024–2025", div: { en: "Middle School Division", zh: "初中组" }, team: "956A SUPERDRACO",
+      wins: [ { en: "<strong>Robot Skills World 2nd Place</strong>, VEX Robotics World Championship · May 2025", zh: "<strong>机器人技能赛世界第二名</strong>，VEX 机器人世界锦标赛 · 2025 年 5 月" },
+              { en: "<strong>Teamwork Division 3rd Place</strong>, VEX Robotics World Championship · May 2025", zh: "<strong>团队赛分区第三名</strong>，VEX 机器人世界锦标赛 · 2025 年 5 月" },
+              { en: "<strong>National Champion</strong>, CREATE U.S. Open · Apr 2025", zh: "<strong>全国冠军</strong>，CREATE 美国公开赛 · 2025 年 4 月" },
+              { en: "<strong>California State Champion</strong> · Mar 2025", zh: "<strong>加州州冠军</strong> · 2025 年 3 月" } ] },
+    { yr: "2023–2024", div: { en: "Elementary School Division", zh: "小学组" }, team: "296A ROBOKIDS",
+      wins: [ { en: "<strong>National Champion</strong>, CREATE U.S. Open · Mar 2024", zh: "<strong>全国冠军</strong>，CREATE 美国公开赛 · 2024 年 3 月" },
+              { en: "<strong>California State Champion</strong> · Mar 2024", zh: "<strong>加州州冠军</strong> · 2024 年 3 月" } ] },
+    { yr: "2022–2023", div: { en: "Elementary School Division", zh: "小学组" }, team: "296A ROBOKIDS CLAIRBOURN",
+      wins: [ { en: "<strong>Teamwork Division 3rd Place</strong>, VEX Robotics World Championship · May 2023", zh: "<strong>团队赛分区第三名</strong>，VEX 机器人世界锦标赛 · 2023 年 5 月" },
+              { en: "<strong>National Champion</strong>, CREATE U.S. Open · Mar 2023", zh: "<strong>全国冠军</strong>，CREATE 美国公开赛 · 2023 年 3 月" },
+              { en: "<strong>California State Champion</strong> · Mar 2023", zh: "<strong>加州州冠军</strong> · 2023 年 3 月" } ] },
+  ],
+
+  innovation: [
+    { since: { en: "2019 – Present", zh: "2019 年至今" },
+      title: { en: "Programming since Grade 1", zh: "一年级开始编程" },
+      points: [ { en: "Began coding in first grade — seven years of programming experience.", zh: "2019 年一年级开始学习编程，已有七年编程经验。" },
+                { en: "The foundation behind his robotics, AI projects and competitive programming.", zh: "这份基础支撑着他的机器人、AI 项目和算法竞赛。" } ],
+      badge: { en: "7 years", zh: "七年" } },
+    { since: { en: "2025", zh: "2025 年" },
+      title: { en: "AI Learning App for Autism Support", zh: "自闭症支持 AI 学习应用" },
+      video: { src: "videos/codingo.mp4", poster: "photos/codingo-poster.jpg", dur: "2:44", cap: { en: "Atticus presents InclusiveCode, the project behind CodinGo: an AI-assisted Python platform designed with autistic and special-needs learners in mind, inspired by teaching autistic children through his foundation.", zh: "Atticus 介绍 CodinGo 背后的项目 InclusiveCode：一款专为自闭症及特殊需求学习者设计的 AI 辅助 Python 学习平台，灵感来自他通过基金会教自闭症孩子编程的经历。" } },
+      points: [ { en: "A smart-robot learning app using voice control and AI-generated gamified exercises.", zh: "一款结合语音控制与 AI 生成游戏化练习的智能机器人学习应用。" },
+                { en: "Designed with autistic and special-needs learners in mind — AI adapts the challenges so every student can learn at their own pace.", zh: "以自闭症及特殊需求学习者为设计核心，AI 自动调整难度，让每个学生都能按自己的节奏学习。" },
+                { en: "First Place Prize, 2025 Google IgniteCS Expo (Sep 2025).", zh: "荣获 2025 Google IgniteCS 博览会一等奖（2025 年 9 月）。" },
+                { en: "Filed a U.S. provisional patent application with the USPTO (Application No. 63/916,503) for this AI autism-support invention (Nov 2025).", zh: "就这项自闭症支持 AI 发明向美国专利商标局（USPTO）提交临时专利申请（申请号 63/916,503），2025 年 11 月。" } ],
+      badge: [ { en: "Google 1st Place", zh: "Google 一等奖" }, { en: "Patent pending", zh: "专利申请中" } ] },
+    { since: { en: "Jan – Feb 2026", zh: "2026 年 1–2 月" },
+      title: { en: "USA Computing Olympiad", zh: "美国计算机奥林匹克竞赛（USACO）" },
+      points: [ { en: "Scored 967 out of 1000 in the Bronze Division and advanced to Silver in January 2026.", zh: "2026 年 1 月在铜级比赛中取得 967 分（满分 1000 分），晋级银级。" },
+                { en: "Perfect score of 1000 in Silver and in-contest promotion to Gold in February 2026.", zh: "2026 年 2 月银级比赛取得满分 1000 分，并在赛中直接晋级金级。" } ],
+      badge: { en: "Gold Division", zh: "金级" } },
+    { since: { en: "Built 2025 · Launched Jan 2026", zh: "2025 年开发 · 2026 年 1 月上线" },
+      title: { en: "CodinGo — on the App Store", zh: "CodinGo —— 已上架 App Store" },
+      points: [ { en: "An interactive, AI-powered platform that helps students and beginners learn Python.", zh: "一款 AI 驱动的互动式学习平台，帮助学生和初学者学习 Python。" },
+                { en: "Developed in 2025 and released on the Apple App Store in January 2026.", zh: "2025 年开发完成，2026 年 1 月正式在 Apple App Store 上架发布。",
+                  links: [ { url: "https://apps.apple.com/us/app/codingo-inclusivecode/id6755097165", label: { en: "View on the App Store", zh: "在 App Store 查看" } } ] } ],
+      badge: { en: "Live app", zh: "已上线" } },
+  ],
+
+  fifa: {
+    title: { en: "Lead Flag Bearer at the <em>World Cup</em>", zh: "世界杯赛场上的<em>首席旗手</em>" },
+    meta: [
+      { k: { en: "Event", zh: "赛事" }, v: { en: "2026 FIFA World Cup Bronze Final", zh: "2026 FIFA 世界杯季军赛" } },
+      { k: { en: "Place", zh: "地点" }, v: { en: "Miami, Florida", zh: "佛罗里达州迈阿密" } },
+      { k: { en: "Date", zh: "时间" }, v: { en: "July 18, 2026", zh: "2026 年 7 月 18 日" } },
+    ],
+  },
+
+  leadership: [
+    { since: { en: "June 2024 – Present", zh: "2024 年 6 月至今" },
+      title: { en: "Founder & President, National Youth Innovation Foundation", zh: "创始人兼主席，全国青少年创新基金会（非营利）" },
+      points: [ { en: "Established a robotics club for children with autism with the Franklin Foundation (2024).", zh: "2024 年与富兰克林基金会合作，为自闭症儿童创办机器人社团。",
+                  links: [ { url: "https://franklinfoundations.org/national-youth-innovation-foundation/", label: { en: "Franklin Foundation article", zh: "富兰克林基金会报道" } },
+                           { video: "videos/press-amtv-nyif.mp4", dur: "3:28", label: { en: "AMTV news report", zh: "AMTV 新闻报道" } },
+                           { video: "videos/press-phoenix-nyif.mp4", dur: "2:39", label: { en: "Phoenix TV news report", zh: "凤凰卫视新闻报道" } } ] },
+                { en: "Community Contribution Award, Franklin Foundation (2024 and 2025).", zh: "连续两年（2024、2025）获富兰克林基金会社区贡献奖。" },
+                { en: "2024 President's Volunteer Service Award (Gold).", zh: "2024 年美国总统志愿服务奖金奖。" } ],
+      badge: { en: "Founder", zh: "创始人" } },
+    { since: { en: "Summer 2026 – Present", zh: "2026 年夏至今" },
+      title: { en: "Founder & First Student President, Barnhart Robotics & Innovation Club", zh: "创始人兼首任学生主席，Barnhart 机器人与创新社" },
+      points: [ { en: "Wrote and presented a club proposal to the Head of School and secured approval.", zh: "撰写社团方案并提交校长，获得学校批准。" },
+                { en: "Donated robotics equipment and competition resources to launch the school's Innovation Lab.", zh: "捐赠机器人器材与比赛资源，助力学校创新实验室建设。" },
+                { en: "Designed a hands-on curriculum in programming, engineering design and robotics for younger students.", zh: "为低年级学生设计涵盖编程、工程设计与机器人基础的实践课程。" } ],
+      badge: { en: "Founder", zh: "创始人" } },
+    { since: { en: "June 2026 – Present", zh: "2026 年 6 月至今" },
+      title: { en: "Presidential Youth Ambassador, Richard Nixon Foundation", zh: "总统青年大使，理查德·尼克松基金会" },
+      gallery: [
+        { img: "photos/nixon-1-library.jpg", cap: { en: "At the Richard Nixon Presidential Library and Museum", zh: "在理查德·尼克松总统图书馆与博物馆" } },
+        { img: "photos/nixon-2-certificate.jpg", cap: { en: "Receiving the Certificate of Achievement", zh: "领取成就证书" } },
+        { img: "photos/nixon-3-podium.jpg", cap: { en: "Speaking at the Nixon Library", zh: "在尼克松图书馆发表演讲" } },
+        { img: "photos/nixon-5-speech-close.jpg", cap: { en: "At the podium", zh: "在讲台上" } },
+        { img: "photos/nixon-6-table.jpg", cap: { en: "Taking part in the ambassador session", zh: "参加青年大使活动" } } ],
+      
+video: { src: "videos/nixon-speech.mp4", poster: "photos/nixon-poster.jpg", dur: "3:24", cap: { en: "Speaking at a Richard Nixon Foundation event, analyzing President Nixon's character traits.", zh: "在理查德·尼克松基金会活动上发表演讲，分析尼克松总统的性格特质。" } },
+      points: [ { en: "Selected for a leadership and civics program at the Nixon Presidential Library and Museum.", zh: "入选尼克松总统图书馆与博物馆的领导力与公民教育项目。" },
+                { en: "Works with student leaders from diverse backgrounds; volunteers at educational and community events.", zh: "与不同背景的学生领袖合作，并在教育及社区活动中担任志愿者。" } ],
+      badge: { en: "Ambassador", zh: "青年大使" } },
+    { since: { en: "Aug 2022 – Present", zh: "2022 年 8 月至今" },
+      title: { en: "Team Captain, VEX Robotics", zh: "VEX 机器人队队长" },
+      points: [ { en: "Captain, programmer, primary driver, designer and builder across four championship seasons.", zh: "连续四个冠军赛季担任队长、程序员、主驾驶手及设计搭建者。" } ],
+      badge: { en: "Captain", zh: "队长" } },
+  ],
+
+  arts: [
+    { since: { en: "Nov 2018 – Present", zh: "2018 年 11 月至今" },
+      title: { en: "Drums", zh: "架子鼓" },
+      points: [ { en: "RSL Rockschool (UK) Drums — Grade 6, Passed with Merit (Nov 2025).", zh: "英国 RSL Rockschool 架子鼓六级，以“良好（Merit）”成绩通过（2025 年 11 月）。" },
+                { en: "1st Place, Overseas Division, Global Youth Instrument Competition (CCTV).", zh: "央视（CCTV）全球青少年器乐大赛海外组第一名。" },
+                { en: "Drummer, Clairbourn School Band (2024–2026).", zh: "Clairbourn 学校乐队鼓手（2024–2026）。",
+                  links: [ { video: "videos/drums.mp4", dur: "2:27", label: { en: "On the drums: watch the performance", zh: "架子鼓演奏：点击观看" } } ] } ],
+      badge: { en: "CCTV · 1st", zh: "央视 第一名" } },
+    { since: { en: "2018 – Present", zh: "2018 年至今" },
+      title: { en: "Screen & Stage", zh: "影视与舞台" },
+      points: [ { en: "Featured on a Times Square billboard (Nov 2022) and in HARPER'S BAZAAR UK (Feb 2023).", zh: "登上纽约时代广场广告屏（2022 年 11 月），并获英国《时尚芭莎》整版报道（2023 年 2 月）。",
+                  links: [ { video: "videos/times-square-billboard.mp4", dur: "0:29", label: { en: "Times Square billboard", zh: "时代广场大屏" } },
+                           { img: "photos/bazaar-feature-2023.jpg", label: { en: "HARPER'S BAZAAR UK page", zh: "《时尚芭莎》专题页" } } ] },
+                { en: "Commercial for Doctor’s Best Vitamins (Feb 2020).", zh: "2020 年 2 月出演 Doctor’s Best 维生素广告。",
+                  links: [ { video: "videos/doctors-best-commercial-2020.mp4", dur: "1:00", label: { en: "Commercial", zh: "广告正片" } },
+                           { video: "videos/doctors-best-bts-2020.mp4", dur: "1:08", label: { en: "Behind the scenes", zh: "拍摄花絮" } } ] },
+                { en: "Best Kid Performance in Short Film, 2019 San Diego International Kids Film Festival;\nBest Child Star, 2019 Golden Statuette International Film Awards;\nBest Child Actor, 2019 Asian Film Festival;\nMost Promising Actor, 2019 Chinese American Film Festival.", zh: "获 2019 圣地亚哥国际儿童电影节“短片最佳童星奖”、\n2019 金雕像国际电影奖“最佳童星奖”、\n2019 亚洲电影节“最佳儿童演员”奖、\n2019 中美电影节“最具潜力演员”奖。",
+                  links: [ { url: "https://www.imdb.com/name/nm10504668/?ref_=fn_t_1", label: { en: "IMDb profile", zh: "IMDb 演员档案" } },
+                           { url: "https://asianfilmfestival.us/actor/atticus-guo/", label: { en: "Asian Film Festival profile", zh: "洛杉矶亚洲电影节演员档案" } },
+                           { video: "videos/asian-film-festival-2019-award.mp4", dur: "1:32", label: { en: "Best Child Actor award, Asian Film Festival 2019", zh: "2019 亚洲电影节最佳儿童演员颁奖" } },
+                           { video: "videos/aff-2019-clip.mp4", dur: "0:15", label: { en: "Winner announced on screen", zh: "大屏宣布获奖" } },
+                           { video: "videos/aff-2019-report.mp4", dur: "1:02", label: { en: "Award ceremony highlights", zh: "颁奖典礼精彩片段" } },
+                           { img: "photos/aff-2019-award.jpg", label: { en: "Award photo, Asian Film Festival 2019", zh: "2019 亚洲电影节获奖合影" } },
+                           { img: "photos/aff-2019-screen.jpg", label: { en: "Winners list on stage", zh: "现场获奖名单" } },
+                           { video: "videos/caff-2019.mp4", dur: "3:54", label: { en: "On stage, 2019 Chinese American Film Festival", zh: "2019 中美电影节领奖" } },
+                           { url: "https://www.youtube.com/watch?v=NW5C5D-KkmY", label: { en: "Golden Child Award interview (Han Tian TV)", zh: "金童奖专访（美国汉天卫视）" } },
+                           { img: "photos/caff-2018-interview.jpg", label: { en: "Media interviews, 2018 Chinese American Film Festival", zh: "2018 中美电影节接受媒体采访" } } ] },
+                { en: "Lead role in the Hollywood short film “Love Never Forgets” (2019), a story about Alzheimer’s disease seen through the eyes of a five-year-old. World premiere at the Dances With Films festival, Chinese Theatre, Hollywood (June 15, 2019).", zh: "主演好莱坞短片《Love Never Forgets》（2019），以五岁孩子的视角讲述家人与阿尔茨海默病的故事。2019 年 6 月 15 日在好莱坞中国大剧院 Dances With Films 电影节全球首映。",
+                  links: [ { url: "https://danceswithfilms.com/love-never-forgets/", label: { en: "Festival listing (Dances With Films)", zh: "电影节片目（Dances With Films）" } } ] },
+                { en: "Lead role in “Chinese Elf”, filmed in China for the series “Legend of Stars” Season 2.", zh: "主演在中国拍摄的《华夏小精灵》（剧集《星天传奇》第二季）。",
+                  links: [ { video: "videos/chinese-elf-trailer.mp4", dur: "1:23", label: { en: "Film trailer", zh: "预告片" } },
+                           { img: "photos/legend-of-stars.jpg", label: { en: "Series poster", zh: "剧集海报" } },
+                           { img: "photos/chinese-elf-still.jpg", label: { en: "Still from the series", zh: "剧照" } } ] },
+                { en: "Lead child model, 2018 Paris Fashion Week and 2019 China Fashion Week.", zh: "2018 巴黎时装周、2019 中国国际时装周童模主秀。",
+                  links: [ { url: "https://hk.crntt.com/crn-webapp/touch/detail.jsp?coluid=7&kindid=0&docid=105214577&from=singlemessage&isappinstalled=0", label: { en: "Paris show report (China Review News)", zh: "巴黎大秀报道（中评社）" } },
+                           { url: "https://www.newswire.com/news/joy-joa-debuted-spring-summer-2019-collection-at-paris-fashion-week-20669970", label: { en: "Paris show press release (Newswire)", zh: "巴黎大秀新闻稿（Newswire）" } },
+                           { img: "photos/paris-fashion-week-2018.jpg", label: { en: "Runway photo, Paris 2018", zh: "2018 巴黎时装周走秀照" } },
+                           { img: "photos/cfw-2019-portrait.jpg", label: { en: "Runway photo, China Fashion Week 2019", zh: "2019 中国国际时装周走秀照" } },
+                           { img: "photos/cfw-2019-runway.jpg", label: { en: "On the runway, China 2019", zh: "2019 中国国际时装周 T 台" } },
+                           { img: "photos/cfw-2019-curtain-call.jpg", label: { en: "Curtain call, SUNCUN show", zh: "SUNCUN 大秀谢幕" } },
+                           { img: "photos/cfw-2019-finale.jpg", label: { en: "Finale group photo, China 2019", zh: "2019 中国国际时装周闭幕合影" } } ] } ] },
+    { since: { en: "June 2021 – Present", zh: "2021 年 6 月至今" },
+      title: { en: "Competitive Saber Fencing", zh: "佩剑击剑" },
+      video: { src: "videos/fencing.mp4", poster: "photos/fencing-poster.jpg", dur: "1:39", cap: { en: "Saber bouts — Atticus wears “GUO” on his back. He also challenged himself in an older age division, against fencers several years older.", zh: "佩剑比赛实况 —— 背后印有“GUO”的是 Atticus；他还主动挑战高年龄组，与比他大几岁的选手同场竞技。" } },
+      points: [ { en: "Trains at West Coast Fencing Academy.", zh: "在 West Coast 击剑学院系统训练。" },
+                { en: "3rd Place, regional fencing tournament (Oct 2023).", zh: "2023 年 10 月地区击剑赛第三名。" } ] },
+    { since: { en: "2024 – Present", zh: "2024 年至今" },
+      title: { en: "School Flag Football", zh: "学校腰旗橄榄球队" },
+      points: [ { en: "Key player for Clairbourn School (2024–2026); school sports award for the 2025 season.", zh: "Clairbourn 学校队主力（2024–2026），获 2025 赛季学校体育奖。" },
+                { en: "Now represents Barnhart School in interscholastic play (Sep 2026 – Present).", zh: "现代表 Barnhart 学校参加校际比赛（2026 年 9 月至今）。" } ] },
+  ],
+
+  academics: [
+    { since: { en: "2024 – 2026", zh: "2024–2026 年" },
+      title: { en: "Clairbourn School Math Team", zh: "Clairbourn 学校数学队" },
+      points: [ { en: "Selected to represent the school in 6th and 7th grades in interscholastic math competitions.", zh: "六、七年级连续入选校数学队，代表学校参加校际数学竞赛。" } ] },
+    { since: { en: "2026", zh: "2026 年" },
+      title: { en: "Math Competition Honors", zh: "数学竞赛荣誉" },
+      points: [ { en: "SIGMA Math Competition — Honor Roll", zh: "SIGMA 数学竞赛 —— 荣誉榜" },
+                { en: "California Math League — Top 5 Scorer", zh: "加州数学联赛 —— 前五名" },
+                { en: "Noetic Learning Math Contest — Honorable Mention, Grade 7", zh: "Noetic 数学竞赛 —— 七年级荣誉奖" } ] },
+  ],
+
+  /* key:true 的年份会用强调色显示 */
+  journey: [
+    { yr: "2018", age: { en: "Age 5", zh: "5 岁" }, title: { en: "First beats", zh: "初登舞台，开始学鼓" },
+      text: { en: "Walked as a lead child model at Paris Fashion Week and began drum lessons — learning early to perform with confidence.", zh: "以童模主秀身份登上巴黎时装周，并开始学习架子鼓，从小学会自信地站上舞台。" } },
+    { yr: "2019", key: true, age: { en: "Age 6 · Grade 1", zh: "6 岁 · 一年级" }, title: { en: "First lines of code", zh: "写下第一行代码" },
+      text: { en: "Started programming in first grade. Coding became the foundation for everything that followed — robotics, AI and competitive programming.", zh: "一年级开始学习编程。编程成为之后一切的基础——机器人、人工智能和算法竞赛都由此开始。" } },
+    { yr: "2021", age: { en: "Age 8", zh: "8 岁" }, title: { en: "Picking up the saber", zh: "拿起佩剑" },
+      text: { en: "Started competitive saber fencing, building focus, discipline and quick decision-making.", zh: "开始系统学习佩剑击剑，锻炼专注力、自律与临场判断。" } },
+    { yr: "2022", key: true, age: { en: "Age 9", zh: "9 岁" }, title: { en: "Discovering robotics", zh: "走进机器人世界" },
+      text: { en: "With three years of coding behind him, joined VEX Robotics and quickly became team captain, programmer and primary driver.", zh: "凭借三年的编程基础，加入 VEX 机器人队，很快成为队长、程序员和主驾驶手。" } },
+    { yr: "2023", age: { en: "Age 10", zh: "10 岁" }, title: { en: "First world podium", zh: "首次站上世界领奖台" },
+      text: { en: "Led ROBOKIDS to Teamwork Division 3rd Place at the VEX World Championship, plus national and state titles.", zh: "带领 ROBOKIDS 获得 VEX 世界锦标赛团队赛分区第三名，同时夺得全国冠军和加州州冠军。" } },
+    { yr: "2024", age: { en: "Age 11", zh: "11 岁" }, title: { en: "Turning skills into service", zh: "把能力变成服务" },
+      text: { en: "Founded the National Youth Innovation Foundation and a robotics club for children with autism; earned the President's Volunteer Service Gold Award.", zh: "创办全国青少年创新基金会及自闭症儿童机器人社团，获美国总统志愿服务金奖。" } },
+    { yr: "2025", age: { en: "Age 12", zh: "12 岁" }, title: { en: "Second in the world & first invention", zh: "技能赛世界第二与第一项发明" },
+      text: { en: "Led SUPERDRACO to Robot Skills World 2nd Place and Teamwork Division 3rd Place at the VEX World Championship, won First Place at the Google IgniteCS Expo with his AI autism-support app, and filed a provisional patent.", zh: "带领 SUPERDRACO 获得 VEX 世锦赛机器人技能赛世界第二名、团队赛分区第三名；凭借自闭症支持 AI 应用赢得 Google IgniteCS 博览会一等奖，并提交临时专利申请。" } },
+    { yr: "2026", key: true, age: { en: "Age 13", zh: "13 岁" }, title: { en: "USACO Gold", zh: "晋级 USACO 金级" },
+      text: { en: "Seven years after his first line of code, advanced from Bronze to Silver with 967 out of 1000, then with a perfect 1000 in Silver to the USA Computing Olympiad Gold Division.", zh: "写下第一行代码七年后，以 967 分（满分 1000 分）由铜级晋升银级，再以银级满分 1000 分晋级美国计算机奥林匹克竞赛金级。" } },
+    { yr: "2026", age: { en: "Age 13", zh: "13 岁" }, title: { en: "Leading on new stages", zh: "在新舞台上担当" },
+      text: { en: "Launched CodinGo on the Apple App Store, won a fourth state title, served as Lead FIFA Flag Bearer at the World Cup, received a Mayor's Commendation, became a Presidential Youth Ambassador with the Richard Nixon Foundation, and founded Barnhart's Robotics & Innovation Club.", zh: "在 Apple App Store 上线 CodinGo；第四次夺得加州州冠军；担任世界杯 FIFA 首席旗手，获市长表彰，成为理查德·尼克松基金会总统青年大使，并创办 Barnhart 机器人与创新社。" } },
+  ],
+
+  honors: [
+    { yr: "2026", items: [
+      { top: true, video: "videos/fifa-flag-bearer.mp4", dur: "0:35", lvl: { en: "International", zh: "国际" }, t: { en: "Lead FIFA Flag Bearer, 2026 FIFA World Cup Bronze Final", zh: "2026 FIFA 世界杯季军赛 首席旗手" }, d: { en: "Pre-match ceremony, Miami, Florida · July 2026", zh: "佛罗里达州迈阿密，赛前仪式 · 2026 年 7 月" } },
+      { lvl: { en: "Civic", zh: "市级" }, video: "videos/arcadia-commendation.mp4", poster: "photos/arcadia-poster.jpg", dur: "2:34", img: "photos/arcadia-certificate.jpg", t: { en: "Mayor's Certificate of Commendation, City of Arcadia", zh: "阿卡迪亚市市长表彰证书" }, d: { en: "For achievements in robotics, technology and community service · July 2026", zh: "表彰其在机器人、科技与社区服务方面的成就 · 2026 年 7 月" } },
+      { lvl: { en: "Leadership", zh: "领导力" }, video: "videos/nixon-speech.mp4", poster: "photos/nixon-poster.jpg", dur: "3:24", t: { en: "Presidential Youth Ambassador, Richard Nixon Foundation", zh: "理查德·尼克松基金会 总统青年大使" }, d: { en: "Nixon Presidential Library and Museum · June 2026", zh: "尼克松总统图书馆与博物馆 · 2026 年 6 月" } },
+      { lvl: { en: "National", zh: "全国" }, t: { en: "USACO Gold Division", zh: "USACO 金级" }, d: { en: "Perfect score of 1000 in Silver", zh: "银级满分 1000 分晋级" } },
+      { lvl: { en: "State", zh: "州级" }, t: { en: "California State Champion, VEX Robotics", zh: "VEX 机器人加州州冠军" }, d: { en: "Team 9156A ALPHA FIVE", zh: "9156A ALPHA FIVE 队" } },
+      { lvl: { en: "Academic", zh: "学术" }, t: { en: "SIGMA Math Competition", zh: "SIGMA 数学竞赛" }, d: { en: "Honor Roll", zh: "荣誉榜" } },
+      { lvl: { en: "Academic", zh: "学术" }, t: { en: "California Math League", zh: "加州数学联赛" }, d: { en: "Top 5 Scorer", zh: "前五名" } },
+      { lvl: { en: "Academic", zh: "学术" }, t: { en: "Noetic Learning Math Contest", zh: "Noetic 数学竞赛" }, d: { en: "Honorable Mention, Grade 7", zh: "七年级荣誉奖" } },
+    ]},
+    { yr: "2025", items: [
+      { top: true, lvl: { en: "World", zh: "世界" }, t: { en: "Robot Skills World 2nd Place, VEX Robotics World Championship", zh: "VEX 机器人世界锦标赛 机器人技能赛世界第二名" }, d: { en: "Team 956A SUPERDRACO", zh: "956A SUPERDRACO 队" } },
+      { top: true, lvl: { en: "World", zh: "世界" }, t: { en: "Teamwork Division 3rd Place, VEX Robotics World Championship", zh: "VEX 机器人世界锦标赛 团队赛分区第三名" }, d: { en: "Team 956A SUPERDRACO", zh: "956A SUPERDRACO 队" } },
+      { lvl: { en: "National", zh: "全国" }, t: { en: "National Champion, CREATE U.S. Open", zh: "CREATE 美国公开赛 全国冠军" }, d: { en: "", zh: "" } },
+      { lvl: { en: "State", zh: "州级" }, t: { en: "California State Champion, VEX Robotics", zh: "VEX 机器人加州州冠军" }, d: { en: "", zh: "" } },
+      { lvl: { en: "Technology", zh: "科技" }, t: { en: "First Place, Google IgniteCS Expo", zh: "Google IgniteCS 博览会 一等奖" }, d: { en: "AI learning app for autism support", zh: "自闭症支持 AI 学习应用" } },
+      { lvl: { en: "Service", zh: "公益" }, t: { en: "Community Contribution Award, Franklin Foundation", zh: "富兰克林基金会 社区贡献奖" }, d: { en: "", zh: "" } },
+      { lvl: { en: "School", zh: "校级" }, t: { en: "School Sports Award, Flag Football", zh: "学校体育奖（腰旗橄榄球）" }, d: { en: "", zh: "" } },
+    ]},
+    { yr: "2024", items: [
+      { lvl: { en: "National", zh: "全国" }, t: { en: "National Champion, CREATE U.S. Open", zh: "CREATE 美国公开赛 全国冠军" }, d: { en: "Team 296A ROBOKIDS", zh: "296A ROBOKIDS 队" } },
+      { lvl: { en: "State", zh: "州级" }, t: { en: "California State Champion, VEX Robotics", zh: "VEX 机器人加州州冠军" }, d: { en: "", zh: "" } },
+      { lvl: { en: "National", zh: "全国" }, t: { en: "President's Volunteer Service Award (Gold)", zh: "美国总统志愿服务奖 金奖" }, d: { en: "", zh: "" } },
+      { lvl: { en: "Service", zh: "公益" }, t: { en: "Community Contribution Award, Franklin Foundation", zh: "富兰克林基金会 社区贡献奖" }, d: { en: "", zh: "" } },
+    ]},
+    { yr: "2023", items: [
+      { top: true, lvl: { en: "World", zh: "世界" }, t: { en: "Teamwork Division 3rd Place, VEX Robotics World Championship", zh: "VEX 机器人世界锦标赛 团队赛分区第三名" }, d: { en: "Team 296A ROBOKIDS CLAIRBOURN", zh: "296A ROBOKIDS CLAIRBOURN 队" } },
+      { lvl: { en: "National", zh: "全国" }, t: { en: "National Champion, CREATE U.S. Open", zh: "CREATE 美国公开赛 全国冠军" }, d: { en: "", zh: "" } },
+      { lvl: { en: "State", zh: "州级" }, t: { en: "California State Champion, VEX Robotics", zh: "VEX 机器人加州州冠军" }, d: { en: "", zh: "" } },
+      { lvl: { en: "Regional", zh: "地区" }, t: { en: "3rd Place, Regional Saber Fencing Tournament", zh: "地区佩剑击剑赛 第三名" }, d: { en: "", zh: "" } },
+    ]},
+    { yr: { en: "Music", zh: "音乐" }, items: [
+      { lvl: { en: "International", zh: "国际" }, t: { en: "1st Place, Overseas Division, Global Youth Instrument Competition (CCTV)", zh: "央视全球青少年器乐大赛 海外组第一名" }, d: { en: "", zh: "" } },
+      { lvl: { en: "Certificate", zh: "认证" }, img: "photos/rsl-certificate.jpg", t: { en: "RSL Rockschool (UK) Drums — Grade 6, Merit", zh: "英国 RSL Rockschool 架子鼓六级（Merit）" }, d: { en: "November 2025", zh: "2025 年 11 月" } },
+    ]},
+  ],
+
+  /* 媒体报道：url 填新闻链接；留空显示“链接待添加” */
+  papers: [
+    { img: "photos/press/wj-2025-04-13.jpg", thumb: "photos/press/thumbs/wj-2025-04-13.jpg", src: { en: "World Journal", zh: "世界日报" }, date: { en: "Apr 13, 2025", zh: "2025 年 4 月 13 日" }, title: { en: "Five Chinese American students win the VEX Robotics U.S. Open", zh: "年度 VEX 机器人美国公开赛　5 华生夺冠" } },
+    { img: "photos/press/st-2025-04-10.jpg", thumb: "photos/press/thumbs/st-2025-04-10.jpg", src: { en: "Sing Tao Daily", zh: "星岛日报" }, date: { en: "Apr 10, 2025", zh: "2025 年 4 月 10 日" }, title: { en: "Middle schooler Atticus Guo leads his team to a third VEX U.S. national title", zh: "初中生郭光恒三度率队夺 VEX 全美机器人赛冠军" } },
+    { img: "photos/press/cdn-2025-04-08.jpg", thumb: "photos/press/thumbs/cdn-2025-04-08.jpg", src: { en: "Chinese Daily News", zh: "中国日报" }, date: { en: "Apr 8, 2025", zh: "2025 年 4 月 8 日" }, title: { en: "Atticus Guo leads his team to a VEX title for the third straight year", zh: "洛华裔学生郭光恒连续第三年率队夺得 VEX 冠军" } },
+    { img: "photos/press/wj-2025-03-11.jpg", thumb: "photos/press/thumbs/wj-2025-03-11.jpg", src: { en: "World Journal", zh: "世界日报" }, date: { en: "Mar 11, 2025", zh: "2025 年 3 月 11 日" }, title: { en: "Chinese American robotics team repeats as VEX IQ California champions", zh: "华生机器人队　蝉联 VEX IQ 加州赛冠军" } },
+    { img: "photos/press/cdn-2025-03-10.jpg", thumb: "photos/press/thumbs/cdn-2025-03-10.jpg", src: { en: "Chinese Daily News", zh: "中国日报" }, date: { en: "Mar 10, 2025", zh: "2025 年 3 月 10 日" }, title: { en: "Southern California Profile: Atticus Guo, core of the VEX IQ California champion team", zh: "南加人物｜郭光恒：机器人赛队蝉联 VEX IQ 加州州赛冠军，团队核心发挥主导作用" } },
+    { img: "photos/press/st-2025-03-06.jpg", thumb: "photos/press/thumbs/st-2025-03-06.jpg", src: { en: "Sing Tao Daily", zh: "星岛日报" }, date: { en: "Mar 6, 2025", zh: "2025 年 3 月 6 日" }, title: { en: "Chinese American student team repeats as VEX IQ California state champions", zh: "华裔学生机器人赛队蝉联 VEX IQ 加州州赛冠军" } },
+    { img: "photos/press/wj-2023-04-03.jpg", thumb: "photos/press/thumbs/wj-2023-04-03.jpg", src: { en: "World Journal", zh: "世界日报" }, date: { en: "Apr 3, 2023", zh: "2023 年 4 月 3 日" }, title: { en: "Chinese American students win the national robotics title with a record 482 points", zh: "全美机器人赛　华生夺冠：总分 482 分刷新北美纪录" } },
+    { img: "photos/press/cdn-2023-03-31.jpg", thumb: "photos/press/thumbs/cdn-2023-03-31.jpg", src: { en: "Chinese Daily News", zh: "中国日报" }, date: { en: "Mar 31, 2023", zh: "2023 年 3 月 31 日" }, title: { en: "Atticus Guo and Mars Zhang win the U.S. national championship", zh: "郭光恒、张耀夫夺全美总冠军" } },
+    { img: "photos/press/st-2023-03-16.jpg", thumb: "photos/press/thumbs/st-2023-03-16.jpg", src: { en: "Sing Tao Daily", zh: "星岛日报" }, date: { en: "Mar 16, 2023", zh: "2023 年 3 月 16 日" }, title: { en: "Atticus Guo and Mars Zhang win the VEX Robotics California championship", zh: "华裔少年郭光恒、张耀夫 VEX 机器人加州大赛夺冠" } },
+    { img: "photos/press/wj-2023-03-15.jpg", thumb: "photos/press/thumbs/wj-2023-03-15.jpg", src: { en: "World Journal", zh: "世界日报" }, date: { en: "Mar 15, 2023", zh: "2023 年 3 月 15 日" }, title: { en: "Chinese American students win the state robotics championship", zh: "华裔学生　机器人赛夺州冠军" } },
+    { img: "photos/press/cdn-2023-03-15.jpg", thumb: "photos/press/thumbs/cdn-2023-03-15.jpg", src: { en: "Chinese Daily News", zh: "中国日报" }, date: { en: "Mar 15, 2023", zh: "2023 年 3 月 15 日" }, title: { en: "Atticus Guo and Mars Zhang win the Excellence Award", zh: "郭光恒、张耀夫夺全能优胜奖" } },
+  ],
+
+  press: [
+    { src: { en: "The Los Angeles Post", zh: "洛杉矶邮报 LA Post" }, date: { en: "Jul 5, 2026", zh: "2026 年 7 月 5 日" }, url: "https://lapost.us/?p=82336",
+      title: { en: "Arcadia teen robotics champion selected as FIFA World Cup flag bearer", zh: "阿卡迪亚少年机器人冠军入选 FIFA 世界杯旗手" } },
+    { src: { en: "AMTV · American Multimedia Television", zh: "美国多媒体电视台 AMTV" }, date: { en: "Apr 2025", zh: "2025 年 4 月" }, video: "videos/press-amtv-usopen-2025.mp4", dur: "2:50",
+      title: { en: "Chinese American middle schooler crowned robotics national champion", zh: "华裔初中生荣膺机器人全国冠军" } },
+    { src: { en: "Phoenix TV North America", zh: "凤凰卫视美洲台" }, date: { en: "Apr 2025", zh: "2025 年 4 月" }, video: "videos/press-phoenix-usopen-2025.mp4", dur: "2:38",
+      title: { en: "Chinese American middle schoolers win the VEX Robotics U.S. Open national title", zh: "华裔初中生问鼎 VEX 机器人美国国家公开赛" } },
+    { src: { en: "The Los Angeles Post", zh: "洛杉矶邮报 LA Post" }, date: { en: "Apr 2, 2025", zh: "2025 年 4 月 2 日" }, url: "https://lapost.us/?p=71739",
+      title: { en: "Chinese American middle schoolers win Robotics U.S. Open Championship", zh: "华裔初中生夺得机器人美国公开赛冠军" } },
+    { src: { en: "The Los Angeles Post", zh: "洛杉矶邮报 LA Post" }, date: { en: "Mar 6, 2025", zh: "2025 年 3 月 6 日" }, url: "https://lapost.us/?p=71283",
+      title: { en: "Chinese American student robotics team wins VEX IQ California State Championship for third consecutive year", zh: "华裔学生机器人队连续第三年夺得 VEX IQ 加州州赛冠军" } },
+    { src: { en: "Franklin Foundation", zh: "富兰克林基金会" }, date: { en: "Oct 12, 2024", zh: "2024 年 10 月 12 日" }, url: "https://franklinfoundations.org/national-youth-innovation-foundation/",
+      title: { en: "“Dancing with Robots”: Atticus Guo and fellow students build friendships with children with autism", zh: "天才少年 Atticus Guo 等同自闭症孩子们建立深厚友情，与机器人共舞" } },
+    { src: { en: "AMTV · American Multimedia Television", zh: "美国多媒体电视台 AMTV" }, date: { en: "Oct 2024", zh: "2024 年 10 月" }, video: "videos/press-amtv-nyif.mp4", dur: "3:28",
+      title: { en: "“Dancing with Robots”: Atticus Guo and young innovators team up with children with autism", zh: "《与机器人共舞》：Atticus Guo 等天才少年与自闭症孩子携手共创未来" } },
+    { src: { en: "Phoenix TV North America", zh: "凤凰卫视美洲台" }, date: { en: "Oct 2024", zh: "2024 年 10 月" }, video: "videos/press-phoenix-nyif.mp4", dur: "2:39",
+      title: { en: "National Youth Innovation Foundation and Franklin Foundation host a charity robotics event", zh: "全美青少年创新基金会携手富兰克林基金会举办慈善活动" } },
+    { src: { en: "Phoenix TV North America", zh: "凤凰卫视美洲台" }, date: { en: "Apr 2024", zh: "2024 年 4 月" }, video: "videos/press-phoenix-robokids.mp4", dur: "3:03",
+      title: { en: "Chinese American students from Southern California shine at VEX Robotics competitions", zh: "南加华裔小学生 VEX 机器人赛事大放异彩" } },
+    { src: { en: "HARPER'S BAZAAR UK", zh: "英国《时尚芭莎》" }, date: { en: "Feb 2023", zh: "2023 年 2 月" }, title: { en: "“Atticus Guo: A Rising Star” — full-page feature in Bazaar Fashion", zh: "《Atticus Guo：冉冉升起的新星》—— Bazaar Fashion 整版专题" }, url: "",
+      imgs: [ { src: "photos/bazaar-feature-2023.jpg", label: { en: "View feature", zh: "查看专题页" } } ] },
+    { src: { en: "IMDb", zh: "IMDb" }, date: "", title: { en: "Actor profile: Atticus Guo", zh: "演员档案：Atticus Guo" }, url: "https://www.imdb.com/name/nm10504668/?ref_=fn_t_1", readLabel: { en: "View profile", zh: "查看档案" } },
+    { src: { en: "Times Square, NYC", zh: "纽约时代广场" }, date: { en: "Nov 2022", zh: "2022 年 11 月" }, video: "videos/times-square-billboard.mp4", dur: "0:29", watch: { en: "Watch billboard", zh: "观看大屏" },
+      title: { en: "Style Cruze magazine cover on a Times Square billboard, New York", zh: "《Style Cruze》杂志封面登上纽约时代广场大屏" }, url: "" },
+    { src: { en: "Asian Film Festival, Los Angeles", zh: "洛杉矶亚洲电影节" }, date: "", url: "https://asianfilmfestival.us/actor/atticus-guo/", readLabel: { en: "View profile", zh: "查看档案" },
+      title: { en: "Actor profile: Atticus Guo", zh: "演员档案：Atticus Guo" } },
+    { src: { en: "Dances With Films", zh: "Dances With Films 电影节" }, date: { en: "Jun 2019", zh: "2019 年 6 月" }, url: "https://danceswithfilms.com/love-never-forgets/", readLabel: { en: "View listing", zh: "查看片目" },
+      title: { en: "“Love Never Forgets” world premiere, starring Atticus Guo", zh: "Atticus Guo 主演短片《Love Never Forgets》全球首映" } },
+    { src: { en: "China Review News", zh: "中评社" }, date: { en: "Oct 12, 2018", zh: "2018 年 10 月 12 日" }, url: "https://hk.crntt.com/crn-webapp/touch/detail.jsp?coluid=7&kindid=0&docid=105214577&from=singlemessage&isappinstalled=0",
+      title: { en: "Child star Atticus Guo opens and closes the Joy&Joa Spring/Summer 2019 show at Paris Fashion Week", zh: "童星郭光恒任 Joy&Joa 2019 春夏巴黎奢美大秀主秀" } },
+    { src: { en: "Newswire", zh: "Newswire 新闻稿" }, date: { en: "Oct 10, 2018", zh: "2018 年 10 月 10 日" }, url: "https://www.newswire.com/news/joy-joa-debuted-spring-summer-2019-collection-at-paris-fashion-week-20669970",
+      title: { en: "Joy & Joa debuts its Spring/Summer 2019 collection at Paris Fashion Week, with Atticus Guo on the runway", zh: "Joy & Joa 巴黎时装周发布 2019 春夏系列，Atticus Guo 登台走秀" } },
+    { src: { en: "Han Tian TV 31.2", zh: "美国汉天卫视 31.2" }, date: "", url: "https://www.youtube.com/watch?v=NW5C5D-KkmY", readLabel: { en: "Watch on YouTube", zh: "在 YouTube 观看" },
+      title: { en: "Oh! My Angeles! Season 2, Happy After School: Golden Child Award interview with Atticus Guo", zh: "《嘿！小孩儿！》第二季《放学以后》特别节目：《全球杰出青少年/儿童•金童奖》专访 Atticus Guo" } },
+  ],
+
+  /* 照片：放进 photos/ 文件夹后填在这里，例如 { img: "photos/vex-worlds.jpg", caption: {en:"...", zh:"..."} }
+     有照片时“相册”板块会自动出现 */
+  gallery: [],
+};
+
+const UI = {
+  nav: [["home",{en:"Home",zh:"首页"}],["about",{en:"About",zh:"关于"}],["robotics",{en:"Robotics",zh:"机器人"}],["innovation",{en:"Innovation",zh:"科技创新"}],
+        ["leadership",{en:"Leadership",zh:"领导力"}],["arts",{en:"Arts & Athletics",zh:"艺术体育"}],["journey",{en:"Journey",zh:"成长"}],
+        ["honors",{en:"Honors",zh:"荣誉"}],["press",{en:"Press",zh:"媒体"}],["contact",{en:"Contact",zh:"联系"}]],
+  "hl.kicker":{en:"Highlights",zh:"亮点"}, "hl.title":{en:"At a glance",zh:"一览"}, "hl.go":{en:"Explore",zh:"查看详情"},
+  "hero.kicker":{en:"Robotics · AI · Music · Service",zh:"机器人 · 人工智能 · 音乐 · 公益"},
+  "hero.tagline":{en:"A 13-year-old roboticist and coder from Arcadia, California, who uses technology to help others.",
+                  zh:"来自加州阿卡迪亚的 13 岁机器人与编程少年，用科技帮助他人。"},
+  "about.title":{en:"About",zh:"关于我"},
+  "robotics.title":{en:"Robotics",zh:"机器人"}, "robotics.sub":{en:"Four championship seasons with VEX Robotics.",zh:"VEX 机器人，连续四个冠军赛季。"},
+  "innovation.title":{en:"Technology with purpose",zh:"有温度的科技"}, "innovation.sub":{en:"Code and AI built for real people.",zh:"为真实的人而写的代码与 AI。"},
+  "fifa.kicker":{en:"July 2026 · Miami",zh:"2026 年 7 月 · 迈阿密"},
+  "fifa.text":{en:"Selected to lead the flag bearers onto the pitch during the pre-match ceremony of the 2026 FIFA World Cup Bronze Final in front of a full stadium and a global audience.",
+               zh:"入选 2026 FIFA 世界杯季军赛赛前仪式，作为首席旗手带领旗手队伍入场——面对座无虚席的球场与全球观众。"},
+  "leadership.title":{en:"Leadership & service",zh:"领导力与公益"}, "leadership.sub":{en:"Founding, organizing, giving back.",zh:"创办、组织、回馈。"},
+  "arts.title":{en:"Arts & athletics",zh:"艺术与体育"}, "arts.sub":{en:"Rhythm, discipline and teamwork.",zh:"节奏、自律与团队。"},
+  "academics.title":{en:"Academics",zh:"学术"},
+  "journey.title":{en:"Journey",zh:"成长历程"}, "journey.sub":{en:"From first beats to first code to the world stage.",zh:"从第一个鼓点、第一行代码，到世界舞台。"},
+  "honors.title":{en:"Honors",zh:"荣誉"},
+  "press.title":{en:"In the press",zh:"媒体报道"},
+  "fifa.article":{en:"Read the LA Post article",zh:"阅读洛杉矶邮报报道"},
+  "papers.title":{en:"Newspaper coverage",zh:"报纸报道"},
+  "papers.note":{en:"Tap a page to read the full article",zh:"点击版面查看完整报道"},
+  "gallery.title":{en:"Moments",zh:"瞬间"},
+  "contact.kicker":{en:"Contact",zh:"联系"},
+  "watch":{en:"Watch video",zh:"观看视频"},
+  "contact.text":{en:"I'd be glad to share more about my story, my projects and what I hope to build next.",zh:"期待与您分享更多我的故事、项目，以及我接下来想创造的东西。"},
+  foot:{en:"Thank you for <em>visiting.</em>",zh:"感谢您的<em>来访。</em>"},
+  worldsCap:{en:"<b>2025 VEX Robotics World Championship</b> — Team USA on stage (Atticus in the red vest and red pants), the finals and the awards",zh:"<b>2025 VEX 机器人世界锦标赛</b> —— 美国代表队登台（身穿红色背心和红裤子的是 Atticus）、决赛与颁奖"},
+  capSuperdraco:{en:"956A SUPERDRACO at the 2025 World Championship, where the team earned World 2nd Place in Robot Skills and Teamwork Division 3rd Place.",zh:"956A SUPERDRACO 队在 2025 世界锦标赛现场，获得机器人技能赛世界第二名、团队赛分区第三名。"},
+  capRobokids:{en:"Champions! 296A ROBOKIDS raising the National Champion trophy at the 2024 CREATE U.S. Open.",zh:"夺冠时刻！296A ROBOKIDS 队在 2024 CREATE 美国公开赛上高举全国冠军奖杯。"},
+  usopenCap:{en:"The robot Atticus designed, built and programmed was the only one in the entire competition to cross the barrier for a full park, drawing an excited roar from the crowd.",zh:"Atticus 亲手设计、搭建并编程的机器人，是整个比赛中唯一能越过障碍、进入奖励区完成满分停靠的机器人，全场观众为之欢呼。"},
+  worldsTag:{en:"Robot Skills World 2nd Place · Teamwork Division 3rd Place",zh:"机器人技能赛世界第二名 · 团队赛分区第三名"},
+  usopenTag:{en:"National Champion",zh:"全国冠军"},
+  worlds23Tag:{en:"Teamwork Division 3rd Place",zh:"团队赛分区第三名"},
+  worlds23Cap:{en:"<b>Teamwork Division 3rd Place</b> — at the 2023 VEX Robotics World Championship in Dallas, Atticus and Mars Zhang of 296A Robokids Clairbourn placed 3rd in their Teamwork Division, competing against elementary school teams from around the world.",zh:"<b>团队赛分区第三名</b> —— 在达拉斯举行的 2023 VEX 机器人世界锦标赛上，Atticus 与张耀夫（296A Robokids Clairbourn）在团队赛分区中获得第三名，与来自世界各地的小学组队伍同场竞技。"},
+  capWorlds23:{en:"Atticus (left) and Mars Zhang with the 2023 Division 3rd Place trophy under the World Championship arch.",zh:"Atticus（左）与张耀夫在世锦赛拱门下手捧 2023 分区第三名奖杯。"},
+  capSeoul23:{en:"Celebrating with the team from Seoul, South Korea (in white).",zh:"与来自韩国首尔的队伍（白色上衣）合影庆祝。"},
+  usopen23Tag:{en:"National Champion",zh:"全国冠军"},
+  usopen23Cap:{en:"<b>National Champion, Elementary School Division</b> — Atticus and teammate Mars Zhang of 296A Robokids Clairbourn won the national title with 482 points in Robot Skills, a new North American record.",zh:"<b>小学组全国总冠军</b> —— Atticus 与队友张耀夫（296A Robokids Clairbourn）以 482 分夺得机器人技能赛全美总冠军，并刷新北美纪录。"},
+  capUsopen23:{en:"National Champions! Atticus (right, blue vest) and Mars Zhang with the trophy at the 2023 CREATE U.S. Open Robotics Championship.",zh:"全国冠军！Atticus（右，蓝色背心）与张耀夫手捧 2023 CREATE 美国公开赛奖杯。"},
+  tdCap:{en:"<b>Touchdown run</b> — Atticus in the white jersey, #32",zh:"<b>达阵冲刺</b> —— Atticus 身穿 32 号白色球衣"},
+  fieldNote:{en:"Speed, grit and a team that plays for each other.",zh:"速度、韧劲，和彼此信任的队友。"},
+  teamCap:{en:"Barnhart Bobcats · Rose Bowl fields",zh:"Barnhart Bobcats 队 · 玫瑰碗球场"},
+  drumCap:{en:"<b>On the drums</b> — watch the performance",zh:"<b>架子鼓演奏</b> —— 点击观看"},
+};
+
+/* ============================ 渲染逻辑 ============================ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let lang = "en";
+try { lang = localStorage.getItem("ag-lang") || (navigator.language.startsWith("zh") ? "zh" : "en"); } catch(e){}
+
+const linkBtn = (k, L) => k.url ? `<a class="vbtn sm" href="${esc(k.url)}" target="_blank" rel="noopener"><span class="vic">↗</span><span>${esc(k.label[L])}</span></a>` : k.video ? `<button class="vbtn sm" data-video="${esc(k.video)}"><span class="vic">▶</span><span>${esc(k.label[L])}</span>${k.dur ? `<span class="vdur">${k.dur}</span>` : ""}</button>` : `<button class="vbtn sm" data-img="${esc(k.img)}"><span class="vic">▣</span><span>${esc(k.label[L])}</span></button>`;
+const entry = (x, L) => `<article class="entry rv"><div class="when">${esc(x.since[L])}</div><div><h3>${esc(x.title[L])}</h3><ul>${x.points.map(p => `<li>${esc(p[L]).replace(/\n/g, "<br>")}${p.links ? `<span class="plinks">${p.links.map(k => linkBtn(k, L)).join("")}</span>` : ""}</li>`).join("")}</ul>${x.links ? `<div class="elinks">${x.links.map(k => k.video ? `<button class="vbtn sm" data-video="${esc(k.video)}"><span class="vic">▶</span><span>${esc(k.label[L])}</span>${k.dur ? `<span class="vdur">${k.dur}</span>` : ""}</button>` : `<button class="vbtn sm" data-img="${esc(k.img)}"><span class="vic">▣</span><span>${esc(k.label[L])}</span></button>`).join("")}</div>` : ""}${x.media ? `<figure class="emedia"><button class="ph" data-img="${esc(x.media.img)}"><img src="${esc(x.media.img)}" alt="${esc(x.media.cap[L])}" loading="lazy"></button><figcaption>${esc(x.media.cap[L])}</figcaption></figure>` : ""}${(x.videos || (x.video ? [x.video] : [])).map(v => `<figure class="evideo"><figcaption>${esc(v.cap[L])}</figcaption><button class="vbtn" data-video="${esc(v.src)}"><span class="vic">▶</span><span>${v.label ? esc(v.label[L]) : (L === "en" ? "Watch video" : "观看视频")}</span><span class="vdur">${v.dur}</span></button></figure>`).join("")}${x.gallery ? `<div class="egal">${x.gallery.map(g => `<button class="ph" data-img="${esc(g.img)}" title="${esc(g.cap[L])}"><img src="${esc(g.img)}" alt="${esc(g.cap[L])}" loading="lazy"></button>`).join("")}</div>` : ""}</div>${Array.isArray(x.badge) ? `<div class="tagcol">${x.badge.map(b => `<span class="tagx">${esc(b[L])}</span>`).join("")}</div>` : x.badge ? `<span class="tagx">${esc(x.badge[L])}</span>` : "<span></span>"}</article>`;
+
+function render(){
+  const L = lang;
+  document.documentElement.lang = L;
+  $("langBtn").textContent = L === "en" ? "中文" : "EN";
+  $("navlinks").innerHTML = UI.nav.map(([id,t]) => `<li><a href="#${id}">${t[L]}</a></li>`).join("");
+  document.querySelectorAll("[data-t]").forEach(el => { const v = UI[el.dataset.t]; if (v) el.textContent = v[L]; });
+  $("cnName").textContent = SITE.cnName; $("cnName").style.display = SITE.cnName ? "" : "none";
+  $("heroStats").innerHTML = SITE.stats.map(s => `<div><b>${esc(s.n)}</b><small>${esc(s[L]).replace(/\n/g,"<br>")}</small></div>`).join("");
+  const mq = SITE.marquee[L].map(w => `<span>${esc(w)}</span><span class="dot">✦</span>`).join("");
+  $("marquee").innerHTML = mq + mq;
+
+  $("statement").innerHTML = SITE.about.statement[L];
+  $("aboutText").innerHTML = SITE.about.paragraphs.map(p => `<p>${esc(p[L])}</p>`).join("");
+  $("hlGrid").innerHTML = SITE.highlights.map(h => `<a class="hl rv" href="#${h.page}"><div class="hl-img"><img src="${esc(h.img)}" alt="${esc(h.t[L])}" loading="lazy"${h.pos ? ` style="object-position:${h.pos}"` : ""}></div><div class="hl-body"><span class="hl-k">${esc(h.k[L])}</span><h3>${esc(h.t[L])}</h3><p>${esc(h.d[L])}</p><span class="hl-go">${UI["hl.go"][L]} →</span></div></a>`).join("");
+  $("facts").innerHTML = SITE.about.facts.map(f => `<div><dt>${esc(f.label[L])}</dt><dd>${esc(f.value[L])}</dd></div>`).join("");
+
+  $("bigStats").innerHTML = SITE.robotics.big.map(s => `<div><b>${s.n}<sup>${s.s}</sup></b><small>${esc(s[L]).split("\n").map(t => `<span class="ln">${t}</span>`).join("")}</small></div>`).join("");
+  $("role").innerHTML = SITE.robotics.role[L];
+  $("seasons").innerHTML = SITE.seasons.map(s => `<div class="season rv"><div class="yr">${s.yr}</div><div><div class="team">${esc(s.team)}</div><div class="div">${esc(s.div[L])}</div></div><ul>${s.wins.map(w => `<li>${w[L]}</li>`).join("")}</ul></div>`).join("");
+
+  $("innovationList").innerHTML = SITE.innovation.map(x => entry(x,L)).join("");
+  $("leadershipList").innerHTML = SITE.leadership.map(x => entry(x,L)).join("");
+  $("artsList").innerHTML = SITE.arts.map(x => entry(x,L)).join("");
+  $("academicsList").innerHTML = SITE.academics.map(x => entry(x,L)).join("");
+
+  $("fifaTitle").innerHTML = SITE.fifa.title[L];
+  $("fifaMeta").innerHTML = SITE.fifa.meta.map(m => `<div><small>${esc(m.k[L])}</small><b>${esc(m.v[L])}</b></div>`).join("");
+  $("tdCap").innerHTML = UI.tdCap[L];
+  $("worldsCap").innerHTML = UI.worldsCap[L];
+  $("usopenCap").innerHTML = UI.usopenCap[L];
+  $("worldsTag").textContent = UI.worldsTag[L];
+  $("usopenTag").textContent = UI.usopenTag[L];
+  $("capSuperdraco").textContent = UI.capSuperdraco[L];
+  $("capRobokids").textContent = UI.capRobokids[L];
+  $("worlds23Tag").textContent = UI.worlds23Tag[L];
+  $("worlds23Cap").innerHTML = UI.worlds23Cap[L];
+  $("capWorlds23").textContent = UI.capWorlds23[L];
+  $("capSeoul23").textContent = UI.capSeoul23[L];
+  $("usopen23Tag").textContent = UI.usopen23Tag[L];
+  $("usopen23Cap").innerHTML = UI.usopen23Cap[L];
+  $("capUsopen23").textContent = UI.capUsopen23[L];
+  $("fieldNote").textContent = UI.fieldNote[L];
+  $("teamCap").textContent = UI.teamCap[L];
+
+  $("timeline").innerHTML = SITE.journey.map(j => `<div class="j rv${j.key ? " key" : ""}"><div class="y">${j.yr}<small>${esc(j.age[L])}</small></div><div><h3>${esc(j.title[L])}</h3><p>${esc(j.text[L])}</p></div></div>`).join("");
+
+  $("honorList").innerHTML = SITE.honors.map(g => `<div class="hy rv"><div class="yr">${esc(typeof g.yr === "string" ? g.yr : g.yr[L])}</div><div>${g.items.map(h => `<div class="h${h.top ? " top" : ""}"><div class="t">${esc(h.t[L])}${h.d[L] ? `<small>${esc(h.d[L])}</small>` : ""}${h.video ? (h.dur ? `<button class="vbtn sm" data-video="${esc(h.video)}"><span class="vic">▶</span><span>${L === "en" ? "Watch video" : "观看视频"}</span><span class="vdur">${h.dur}</span></button>` : `<button class="vbtn sm" data-video="${esc(h.video)}"><span class="vic">▶</span><span>${L === "en" ? "Watch video" : "观看视频"}</span></button>`) : ""}${h.img ? `<button class="vbtn sm" data-img="${esc(h.img)}"><span class="vic">▣</span><span>${L === "en" ? "View certificate" : "查看证书"}</span></button>` : ""}</div><span class="lv">${esc(h.lvl[L])}</span></div>`).join("")}</div></div>`).join("");
+
+  $("pressList").innerHTML = SITE.press.map(p => {
+    const inner = `<div class="src">${esc(p.src[L])}${p.date ? " · " + esc(typeof p.date === "string" ? p.date : p.date[L]) : ""}</div><h3>${esc(p.title[L])}</h3>${p.video || p.imgs || p.url ? `<div class="acts">${p.url ? `<a class="vbtn sm" href="${esc(p.url)}" target="_blank" rel="noopener"><span class="vic">↗</span><span>${p.readLabel ? esc(p.readLabel[L]) : (L === "en" ? "Read article" : "阅读报道")}</span></a>` : ""}${p.video ? `<button class="vbtn sm" data-video="${esc(p.video)}"><span class="vic">▶</span><span>${p.watch ? esc(p.watch[L]) : (L === "en" ? "Watch report" : "观看报道")}</span><span class="vdur">${p.dur}</span></button>` : ""}${(p.imgs || []).map(m => `<button class="vbtn sm" data-img="${esc(m.src)}"><span class="vic">▣</span><span>${esc(m.label[L])}</span></button>`).join("")}</div>` : `<div class="go">${L === "en" ? "Link coming soon" : "链接待添加"}</div>`}`;
+    return `<div class="news rv">${inner}</div>`;
+  }).join("");
+
+  $("paperList").innerHTML = SITE.papers.map(p => `<button class="paper rv" data-img="${esc(p.img)}"><span class="pthumb"><img src="${esc(p.thumb)}" alt="${esc(p.src[L])} · ${esc(p.date[L])}" loading="lazy"></span><span class="psrc">${esc(p.src[L])} · ${esc(p.date[L])}</span><span class="ptitle">${esc(p.title[L])}</span></button>`).join("");
+  $("galleryGrid").innerHTML = "";
+  SITE.gallery.forEach(g => { const i = new Image(); i.onload = () => { $("gallery").hidden = false; $("galleryGrid").insertAdjacentHTML("beforeend", `<figure class="rv in"><img src="${esc(g.img)}" alt="${esc(g.caption[L])}" loading="lazy"><figcaption>${esc(g.caption[L])}</figcaption></figure>`); }; i.src = g.img; });
+
+  $("footTitle").innerHTML = UI.foot[L];
+  $("email").textContent = SITE.email; $("email").href = "mailto:" + SITE.email;
+
+  document.querySelectorAll("[data-img]").forEach(el => el.onclick = () => openImage(el.dataset.img));
+  document.querySelectorAll("[data-video]").forEach(el => el.onclick = () => openVideo(el.dataset.video));
+  observe();
+}
+
+/* 全屏视频播放：竖屏、横屏都完整显示，铺满屏幕 */
+function openImage(src){
+  const box = $("lightbox"), im = $("lbImg");
+  box.classList.remove("portrait", "tall"); box.scrollTop = 0;
+  im.onload = () => { const r = im.naturalHeight / im.naturalWidth; if (r > 1.9 || (r > 1.6 && src.includes("/press/"))) box.classList.add("tall"); };
+  $("lbVideo").hidden = true; im.src = src; im.hidden = false;
+  box.hidden = false; document.body.style.overflow = "hidden";
+}
+/* HEVC (iPhone) originals have an H.264 copy in videos/h264/ for browsers that cannot play HEVC */
+const HEVC = new Set(["arcadia-commendation","codingo","drums","fencing","fifa-flag-bearer","flag-touchdown","nixon-speech","us-open-2024","vex-worlds-2025"].map(n => "videos/" + n + ".mp4"));
+const hevcOK = (() => { try { return !!document.createElement("video").canPlayType('video/mp4; codecs="hvc1.1.6.L93.B0"'); } catch (e) { return false; } })();
+const h264 = s => s.replace("videos/", "videos/h264/");
+const bust = s => s.split("?")[0] + "?r=" + Date.now();
+/* 线上网站：视频原文件存放在 GitHub Release（文件太大，不能放进网站本体）；本机预览时仍用本地 videos/ 文件夹 */
+const LOCAL = location.protocol === "file:" || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+const VBASE = "https://github.com/juliaguo168/atticus-guo-website/releases/download/media-v1/";
+const vurl = s => LOCAL ? s : VBASE + s.split("?")[0].replace("videos/h264/", "h264-").replace("videos/", "");
+function openVideo(src){
+  const box = $("lightbox"), v = $("lbVideo");
+  $("lbImg").hidden = true; v.hidden = false;
+  box.classList.remove("portrait");
+  let cur = HEVC.has(src) && !hevcOK ? h264(src) : src, retries = 0;
+  v.onerror = () => {
+    if (box.hidden) return;
+    if (HEVC.has(src) && !cur.includes("/h264/")) cur = h264(src);   // switch to the H.264 copy
+    else if (retries++ < 2) cur = bust(cur);                           // network hiccup: try again
+    else return;
+    const t = v.currentTime || 0; v.src = vurl(cur); if (t) v.currentTime = t; v.play().catch(()=>{});
+  };
+  v.src = vurl(cur); box.hidden = false; document.body.style.overflow = "hidden";
+  try { if (box.requestFullscreen) box.requestFullscreen().catch(()=>{}); } catch(e){}
+  v.play().catch(()=>{});
+  // Portrait videos: fill the empty sides with a blurred copy so the screen feels full
+  v.onloadedmetadata = () => {
+    const bg = $("lbBg");
+    if (v.videoHeight > v.videoWidth) {
+      box.classList.add("portrait"); bg.src = v.currentSrc || cur; bg.currentTime = v.currentTime;
+      if (!v.paused) bg.play().catch(()=>{});
+    }
+  };
+  const bgSync = () => { const bg = $("lbBg"); if (!box.classList.contains("portrait")) return;
+    if (Math.abs(bg.currentTime - v.currentTime) > .4) bg.currentTime = v.currentTime;
+    if (v.paused) bg.pause(); else bg.play().catch(()=>{}); };
+  v.onplay = v.onpause = v.onseeked = bgSync;
+}
+function closeVideo(){
+  const box = $("lightbox"), v = $("lbVideo"), bg = $("lbBg");
+  v.onerror = null;
+  bg.pause(); bg.removeAttribute("src"); bg.load(); box.classList.remove("portrait", "tall");
+  v.pause(); v.removeAttribute("src"); v.load(); box.hidden = true; document.body.style.overflow = "";
+  if (document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+}
+$("lbClose").onclick = closeVideo;
+/* any photo that fails to load is retried automatically */
+document.addEventListener("error", e => {
+  const t = e.target;
+  if (t && t.tagName === "IMG" && t.getAttribute("src") && (+t.dataset.retry || 0) < 2) {
+    t.dataset.retry = (+t.dataset.retry || 0) + 1;
+    setTimeout(() => { t.src = bust(t.getAttribute("src")); }, 400);
+  }
+}, true);
+$("lightbox").onclick = e => { const tall = $("lightbox").classList.contains("tall"); if (e.target.id === "lightbox" || (e.target.id === "lbImg" && !tall)) closeVideo(); };
+document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("lightbox").hidden) closeVideo(); });
+document.addEventListener("fullscreenchange", () => { if (!document.fullscreenElement && !$("lightbox").hidden) closeVideo(); });
+
+let io;
+function observe(){
+  if (!("IntersectionObserver" in window)) { document.querySelectorAll(".rv").forEach(e => e.classList.add("in")); return; }
+  io && io.disconnect();
+  io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .05, rootMargin: "0px 0px -40px 0px" });
+  document.querySelectorAll(".rv:not(.in)").forEach(e => io.observe(e));
+}
+
+/* 分页：每个栏目单独一页，用网址 # 切换 */
+const PAGES = ["home","about","robotics","innovation","leadership","arts","journey","honors","press"];
+const ALIAS = { "": "home", top: "home", highlights: "home", academics: "innovation", fifa: "leadership" };
+let page = "home";
+function renderNext(){
+  const i = PAGES.indexOf(page), n = PAGES[i + 1], name = id => UI.nav.find(x => x[0] === id)[1][lang];
+  $("pageNext").innerHTML = n
+    ? `<a href="#${n}"><small>${lang === "en" ? "Next" : "下一页"}</small><span>${name(n)} →</span></a>`
+    : `<a href="#home"><small>${lang === "en" ? "Back to" : "返回"}</small><span>${lang === "en" ? "Home" : "首页"} ↑</span></a>`;
+}
+function showPage(){
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (h === "contact") { $("contact").scrollIntoView(); return; }
+  const p = PAGES.includes(h) ? h : (ALIAS[h] || "home"), changed = p !== page || !document.body.classList.contains("paged");
+  page = p;
+  document.body.classList.add("paged");
+  let first = true;
+  document.querySelectorAll("[data-page]").forEach(s => { const on = s.dataset.page === p; s.classList.toggle("on", on); s.classList.toggle("first", on && first && s.tagName === "SECTION"); if (on) first = false; });
+  document.querySelectorAll("#navlinks a").forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + p));
+  renderNext();
+  if (changed) window.scrollTo({ top: 0, behavior: "instant" });
+  onScroll(); observe();
+}
+addEventListener("hashchange", showPage);
+
+const nav = $("nav");
+const onScroll = () => nav.classList.toggle("solid", page !== "home" || scrollY > innerHeight * .75);
+addEventListener("scroll", onScroll, { passive: true }); onScroll();
+$("menuBtn").onclick = () => $("navlinks").classList.toggle("open");
+$("navlinks").addEventListener("click", e => { if (e.target.tagName === "A") $("navlinks").classList.remove("open"); });
+$("langBtn").onclick = () => { lang = lang === "en" ? "zh" : "en"; try { localStorage.setItem("ag-lang", lang); } catch(e){} render(); showPage(); };
+$("heroBg").style.backgroundImage = `url(${SITE.heroImage})`;
+render();
+showPage();
+</script>
+</body>
+</html>
