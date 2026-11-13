@@ -343,6 +343,7 @@ a.vbtn{text-decoration:none}
 
 /* ---------- pages ---------- */
 body.paged [data-page]:not(.on){display:none!important}
+body:not(.paged) .pagenext{display:none}
 body.paged section.first{padding-top:170px}
 @media (max-width:900px){body.paged section.first{padding-top:130px}}
 body.paged .label .num{display:none}
@@ -1100,9 +1101,23 @@ function renderNext(){
     ? `<a href="#${n}"><small>${lang === "en" ? "Next" : "下一页"}</small><span>${name(n)} →</span></a>`
     : `<a href="#home"><small>${lang === "en" ? "Back to" : "返回"}</small><span>${lang === "en" ? "Home" : "首页"} ↑</span></a>`;
 }
-function showPage(){
+/* 手机上不分页：所有内容在一个长页面里，菜单点击后滚动到对应位置 */
+const phone = matchMedia("(max-width: 767px)");
+function showPage(e){
   const h = decodeURIComponent(location.hash.slice(1));
   if (h === "contact") { $("contact").scrollIntoView(); return; }
+  if (phone.matches) {
+    const was = document.body.classList.contains("paged");
+    document.body.classList.remove("paged"); page = "home";
+    document.querySelectorAll("[data-page]").forEach(s => s.classList.remove("on", "first"));
+    document.querySelectorAll("#navlinks a").forEach(a => a.classList.remove("active"));
+    if (e !== "lang") {
+      const el = h && !["home", "top"].includes(h) ? document.getElementById(h) : null;
+      if (el) el.scrollIntoView({ behavior: was || !e ? "instant" : "smooth" });
+      else if (e && e.type === "hashchange") window.scrollTo({ top: 0 });
+    }
+    onScroll(); observe(); return;
+  }
   const p = PAGES.includes(h) ? h : (ALIAS[h] || "home"), changed = p !== page || !document.body.classList.contains("paged");
   page = p;
   document.body.classList.add("paged");
@@ -1114,13 +1129,14 @@ function showPage(){
   onScroll(); observe();
 }
 addEventListener("hashchange", showPage);
+phone.addEventListener("change", () => showPage());
 
 const nav = $("nav");
 const onScroll = () => nav.classList.toggle("solid", page !== "home" || scrollY > innerHeight * .75);
 addEventListener("scroll", onScroll, { passive: true }); onScroll();
 $("menuBtn").onclick = () => $("navlinks").classList.toggle("open");
 $("navlinks").addEventListener("click", e => { if (e.target.tagName === "A") $("navlinks").classList.remove("open"); });
-$("langBtn").onclick = () => { lang = lang === "en" ? "zh" : "en"; try { localStorage.setItem("ag-lang", lang); } catch(e){} render(); showPage(); };
+$("langBtn").onclick = () => { lang = lang === "en" ? "zh" : "en"; try { localStorage.setItem("ag-lang", lang); } catch(e){} render(); showPage("lang"); };
 $("heroBg").style.backgroundImage = `url(${SITE.heroImage})`;
 render();
 showPage();
