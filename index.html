@@ -348,12 +348,29 @@ body.paged section.first{padding-top:170px}
 @media (max-width:900px){body.paged section.first{padding-top:130px}}
 body.paged .label .num{display:none}
 .links a.active{opacity:1;color:var(--accent)}
-.pagenext{max-width:1240px;margin:0 auto;padding:0 40px 90px}
-.pagenext a{display:flex;flex-direction:column;gap:6px;align-items:flex-end;text-decoration:none;color:var(--ink);border-top:1px solid var(--line);padding-top:28px}
-.pagenext small{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600;color:var(--muted)}
-.pagenext span{font-family:var(--serif);font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.1;transition:color .25s}
-.pagenext a:hover span{color:var(--accent)}
-@media (max-width:900px){.pagenext{padding:0 20px 64px}}
+.pagenext{max-width:1240px;margin:0 auto;padding:10px 40px 90px}
+.pn-steps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
+.pn-count{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-right:6px}
+.pn-steps a{font-size:.78rem;font-weight:600;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:border-color .2s,color .2s}
+.pn-steps a:hover{color:var(--ink);border-color:var(--ink)}
+.pn-steps a.cur{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.pn-steps a.done{color:var(--ink)}
+.pn-card{display:flex;align-items:center;justify-content:space-between;gap:24px;text-decoration:none;color:#fff;background:var(--accent);border-radius:20px;padding:30px 34px;transition:background .3s,transform .3s;box-shadow:0 14px 34px rgba(196,82,47,.28)}
+.pn-card:hover{background:var(--ink);transform:translateY(-2px)}
+.pn-card small{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.8)}
+.pn-card b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;margin-top:8px}
+.pn-card em{display:block;font-style:normal;font-size:.95rem;font-weight:600;color:#fff;margin-top:10px}
+.pn-arrow{flex:none;width:64px;height:64px;border-radius:50%;background:#fff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;animation:pnNudge 1.8s ease-in-out infinite}
+.pn-card:hover .pn-arrow{background:var(--accent);color:#fff}
+@keyframes pnNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
+.pn-float{position:fixed;right:24px;bottom:24px;z-index:55;display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;background:var(--ink);border-radius:999px;padding:12px 14px 12px 20px;font-size:.88rem;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.18);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .35s,transform .35s,background .25s}
+.pn-float.show{opacity:1;transform:none;pointer-events:auto}
+.pn-float:hover{background:var(--accent)}
+.pn-float i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
+.pn-float:hover i{background:#fff;color:var(--accent)}
+body:not(.paged) .pn-float{display:none}
+@media (prefers-reduced-motion:reduce){.pn-arrow{animation:none}}
+@media (max-width:900px){.pagenext{padding:0 20px 64px}.pn-card{padding:24px}.pn-arrow{width:52px;height:52px}}
 /* ---------- highlight cards ---------- */
 #highlights{padding-bottom:40px}
 .hl-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin-top:12px}
@@ -567,6 +584,7 @@ body.paged .label .num{display:none}
 </div></section>
 
 <div class="pagenext" id="pageNext"></div>
+<a class="pn-float" id="pnFloat" href="#"></a>
 
 <footer id="contact"><div class="wrap">
   <div class="kicker" style="color:var(--accent)" data-t="contact.kicker"></div>
@@ -1109,11 +1127,24 @@ const PAGES = ["home","about","robotics","innovation","leadership","arts","journ
 const ALIAS = { "": "home", top: "home", highlights: "home", academics: "innovation", fifa: "leadership" };
 let page = "home";
 function renderNext(){
-  const i = PAGES.indexOf(page), n = PAGES[i + 1], name = id => UI.nav.find(x => x[0] === id)[1][lang];
-  $("pageNext").innerHTML = n
-    ? `<a href="#${n}"><small>${lang === "en" ? "Next" : "下一页"}</small><span>${name(n)} →</span></a>`
-    : `<a href="#home"><small>${lang === "en" ? "Back to" : "返回"}</small><span>${lang === "en" ? "Home" : "首页"} ↑</span></a>`;
+  const en = lang === "en", i = PAGES.indexOf(page), n = PAGES[i + 1], name = id => UI.nav.find(x => x[0] === id)[1][lang];
+  const steps = `<div class="pn-steps"><span class="pn-count">${en ? `Section ${i + 1} of ${PAGES.length}` : `第 ${i + 1} / ${PAGES.length} 部分`}</span>${PAGES.map((p, k) => `<a href="#${p}" class="${k === i ? "cur" : k < i ? "done" : ""}">${name(p)}</a>`).join("")}</div>`;
+  const card = n
+    ? `<a class="pn-card" href="#${n}"><div><small>${en ? "Up next" : "下一部分"}</small><b>${name(n)}</b><em>${en ? "Click here to continue reading" : "点击这里，继续阅读下一部分"}</em></div><span class="pn-arrow">→</span></a>`
+    : `<a class="pn-card" href="#home"><div><small>${en ? "You've reached the end" : "已经看完全部内容"}</small><b>${en ? "Back to Home" : "返回首页"}</b><em>${en ? "Click here to start again from the top" : "点击这里，回到首页"}</em></div><span class="pn-arrow">↑</span></a>`;
+  $("pageNext").innerHTML = steps + card;
+  const f = $("pnFloat");
+  f.hidden = !n;
+  if (n) { f.href = "#" + n; f.innerHTML = `${en ? "Next" : "下一部分"}: ${name(n)} <i>→</i>`; }
+  updFloat();
 }
+function updFloat(){
+  const f = $("pnFloat"); if (!f) return;
+  const cardTop = $("pageNext").getBoundingClientRect().top;
+  f.classList.toggle("show", document.body.classList.contains("paged") && !f.hidden && scrollY > 300 && cardTop > innerHeight - 40);
+}
+addEventListener("scroll", updFloat, { passive: true });
+addEventListener("resize", updFloat);
 /* 手机上不分页：所有内容在一个长页面里，菜单点击后滚动到对应位置 */
 const phone = matchMedia("(max-width: 767px)");
 function showPage(e){
