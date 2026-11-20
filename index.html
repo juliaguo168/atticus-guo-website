@@ -348,29 +348,36 @@ body.paged section.first{padding-top:170px}
 @media (max-width:900px){body.paged section.first{padding-top:130px}}
 body.paged .label .num{display:none}
 .links a.active{opacity:1;color:var(--accent)}
-.pagenext{max-width:1240px;margin:0 auto;padding:10px 40px 90px}
-.pn-steps{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:18px}
-.pn-count{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-right:6px}
-.pn-steps a{font-size:.78rem;font-weight:600;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 12px;transition:border-color .2s,color .2s}
-.pn-steps a:hover{color:var(--ink);border-color:var(--ink)}
-.pn-steps a.cur{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-.pn-steps a.done{color:var(--ink)}
-.pn-card{display:flex;align-items:center;justify-content:space-between;gap:24px;text-decoration:none;color:#fff;background:var(--accent);border-radius:20px;padding:30px 34px;transition:background .3s,transform .3s;box-shadow:0 14px 34px rgba(196,82,47,.28)}
-.pn-card:hover{background:var(--ink);transform:translateY(-2px)}
-.pn-card small{display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:rgba(255,255,255,.8)}
-.pn-card b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.1;margin-top:8px}
-.pn-card em{display:block;font-style:normal;font-size:.95rem;font-weight:600;color:#fff;margin-top:10px}
-.pn-arrow{flex:none;width:64px;height:64px;border-radius:50%;background:#fff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.6rem;animation:pnNudge 1.8s ease-in-out infinite}
-.pn-card:hover .pn-arrow{background:var(--accent);color:#fff}
-@keyframes pnNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(8px)}}
-.pn-float{position:fixed;right:24px;bottom:24px;z-index:55;display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;background:var(--ink);border-radius:999px;padding:12px 14px 12px 20px;font-size:.88rem;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,.18);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .35s,transform .35s,background .25s}
+.pagenext{max-width:1240px;margin:0 auto;padding:20px 40px 96px}
+.pn-prog{display:flex;align-items:center;gap:18px;margin-bottom:22px}
+.pn-num{font-family:var(--serif);font-style:italic;font-size:1.15rem;color:var(--accent);white-space:nowrap}
+.pn-num small{font-size:.8rem;color:var(--muted);margin-left:2px}
+.pn-bar{flex:1;display:flex;gap:6px}
+.pn-bar a{flex:1;height:4px;border-radius:4px;background:var(--line);transition:background .25s,transform .25s}
+.pn-bar a.done{background:var(--ink-2)}
+.pn-bar a.cur{background:var(--accent)}
+.pn-bar a:hover{background:var(--accent);transform:scaleY(1.8)}
+.pn-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:28px;text-decoration:none;color:var(--ink);background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:22px;padding:34px 40px;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
+.pn-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--accent)}
+.pn-card:hover{border-color:rgba(196,82,47,.45);transform:translateY(-3px);box-shadow:0 18px 40px rgba(22,23,27,.08)}
+.pn-card small{display:block;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.pn-card b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(1.9rem,3.4vw,2.6rem);line-height:1.1;margin-top:10px;letter-spacing:-.01em}
+.pn-card em{display:block;font-family:var(--serif);font-style:italic;font-size:1.02rem;color:var(--muted);margin-top:10px}
+.pn-go{flex:none;display:inline-flex;align-items:center;gap:12px;background:var(--accent);color:#fff;border-radius:999px;padding:8px 8px 8px 22px;font-size:.88rem;font-weight:600;white-space:nowrap;transition:background .3s}
+.pn-go i{font-style:normal;width:38px;height:38px;border-radius:50%;background:#fff;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.05rem;animation:pnNudge 2.2s ease-in-out infinite}
+.pn-card:hover .pn-go{background:var(--ink)}
+.pn-card:hover .pn-go i{color:var(--ink)}
+@keyframes pnNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.pn-float{position:fixed;right:24px;bottom:24px;z-index:55;display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);background:rgba(245,240,232,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--line);border-radius:999px;padding:7px 7px 7px 20px;box-shadow:0 12px 32px rgba(22,23,27,.12);opacity:0;transform:translateY(16px);pointer-events:none;transition:opacity .35s,transform .35s,border-color .25s}
 .pn-float.show{opacity:1;transform:none;pointer-events:auto}
-.pn-float:hover{background:var(--accent)}
-.pn-float i{font-style:normal;width:28px;height:28px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center}
-.pn-float:hover i{background:#fff;color:var(--accent)}
+.pn-float:hover{border-color:var(--accent)}
+.pn-float small{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.pn-float span{font-family:var(--serif);font-size:1.05rem}
+.pn-float i{font-style:normal;width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;transition:transform .25s}
+.pn-float:hover i{transform:translateX(3px)}
 body:not(.paged) .pn-float{display:none}
-@media (prefers-reduced-motion:reduce){.pn-arrow{animation:none}}
-@media (max-width:900px){.pagenext{padding:0 20px 64px}.pn-card{padding:24px}.pn-arrow{width:52px;height:52px}}
+@media (prefers-reduced-motion:reduce){.pn-go i{animation:none}}
+@media (max-width:900px){.pagenext{padding:0 20px 64px}.pn-card{padding:24px 24px 24px 28px;flex-direction:column;align-items:flex-start;gap:18px}}
 /* ---------- highlight cards ---------- */
 #highlights{padding-bottom:40px}
 .hl-head h2{font-family:var(--serif);font-weight:400;font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin-top:12px}
@@ -1128,14 +1135,15 @@ const ALIAS = { "": "home", top: "home", highlights: "home", academics: "innovat
 let page = "home";
 function renderNext(){
   const en = lang === "en", i = PAGES.indexOf(page), n = PAGES[i + 1], name = id => UI.nav.find(x => x[0] === id)[1][lang];
-  const steps = `<div class="pn-steps"><span class="pn-count">${en ? `Section ${i + 1} of ${PAGES.length}` : `第 ${i + 1} / ${PAGES.length} 部分`}</span>${PAGES.map((p, k) => `<a href="#${p}" class="${k === i ? "cur" : k < i ? "done" : ""}">${name(p)}</a>`).join("")}</div>`;
+  const pad = k => String(k).padStart(2, "0"), title = id => (UI[id + ".title"] || {})[lang] || name(id), sub = id => (UI[id + ".sub"] || {})[lang];
+  const steps = `<div class="pn-prog"><span class="pn-num">${pad(i + 1)}<small>/ ${pad(PAGES.length)}</small></span><div class="pn-bar">${PAGES.map((p, k) => `<a href="#${p}" title="${esc(name(p))}" aria-label="${esc(name(p))}" class="${k === i ? "cur" : k < i ? "done" : ""}"></a>`).join("")}</div></div>`;
   const card = n
-    ? `<a class="pn-card" href="#${n}"><div><small>${en ? "Up next" : "下一部分"}</small><b>${name(n)}</b><em>${en ? "Click here to continue reading" : "点击这里，继续阅读下一部分"}</em></div><span class="pn-arrow">→</span></a>`
-    : `<a class="pn-card" href="#home"><div><small>${en ? "You've reached the end" : "已经看完全部内容"}</small><b>${en ? "Back to Home" : "返回首页"}</b><em>${en ? "Click here to start again from the top" : "点击这里，回到首页"}</em></div><span class="pn-arrow">↑</span></a>`;
+    ? `<a class="pn-card" href="#${n}"><div><small>${en ? "Up next" : "下一部分"} · ${pad(i + 2)}</small><b>${esc(title(n))}</b><em>${esc(sub(n) || (en ? "Continue the story." : "继续了解下一部分。"))}</em></div><span class="pn-go">${en ? "Continue reading" : "继续阅读"}<i>→</i></span></a>`
+    : `<a class="pn-card" href="#home"><div><small>${en ? "The end" : "全部内容已读完"}</small><b>${en ? "Thank you for reading" : "感谢阅读"}</b><em>${en ? "Return to the beginning." : "回到首页，重新浏览。"}</em></div><span class="pn-go">${en ? "Back to Home" : "返回首页"}<i>↑</i></span></a>`;
   $("pageNext").innerHTML = steps + card;
   const f = $("pnFloat");
   f.hidden = !n;
-  if (n) { f.href = "#" + n; f.innerHTML = `${en ? "Next" : "下一部分"}: ${name(n)} <i>→</i>`; }
+  if (n) { f.href = "#" + n; f.innerHTML = `<small>${en ? "Next" : "下一部分"}</small><span>${esc(name(n))}</span><i>→</i>`; }
   updFloat();
 }
 function updFloat(){
