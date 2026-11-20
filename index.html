@@ -218,6 +218,23 @@ footer h2 em{font-style:italic;color:var(--accent)}
 footer p{color:#a9a59c;margin-top:18px;max-width:520px}
 footer .mail{display:inline-block;margin-top:36px;font-family:var(--serif);font-size:clamp(1.3rem,3vw,2rem);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:4px}
 footer .mail:hover{color:#fff}
+.msgform{margin-top:64px;max-width:760px;display:grid;gap:16px}
+.mf-head p{margin-top:8px;font-size:.92rem}
+.mf-head .kicker{color:var(--accent)}
+.mf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.msgform label{display:grid;gap:8px;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:#a9a59c}
+.msgform input,.msgform textarea{font:inherit;font-size:1rem;letter-spacing:0;text-transform:none;font-weight:400;color:#fff;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:13px 16px;outline:none;transition:border-color .2s,background .2s;resize:vertical;width:100%}
+.msgform input:focus,.msgform textarea:focus{border-color:var(--accent);background:rgba(255,255,255,.08)}
+.msgform .bad{border-color:#e06b4a}
+.mf-hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden}
+.mf-foot{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.mf-send{font:inherit;font-size:.92rem;font-weight:600;color:#fff;background:var(--accent);border:0;border-radius:999px;padding:13px 28px;cursor:pointer;transition:background .2s,opacity .2s}
+.mf-send:hover{background:#d8643f}
+.mf-send:disabled{opacity:.6;cursor:default}
+.mf-status{font-size:.92rem;color:#a9a59c}
+.mf-status.ok{color:#9fd3a7}
+.mf-status.err{color:#f0a58c}
+@media (max-width:640px){.mf-row{grid-template-columns:1fr}.msgform{margin-top:48px}}
 .foot-bottom{display:flex;justify-content:space-between;gap:20px;margin-top:110px;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);font-size:.8rem;color:#7d7970}
 
 /* flag football block */
@@ -598,6 +615,16 @@ body:not(.paged) .pn-float{display:none}
   <h2 id="footTitle" style="margin-top:18px"></h2>
   <p data-t="contact.text"></p>
   <a class="mail" id="email" href="#"></a>
+  <form class="msgform" id="msgForm" novalidate>
+    <div class="mf-head"><span class="kicker" data-t="mf.kicker"></span><p data-t="mf.note"></p></div>
+    <div class="mf-row">
+      <label><span data-t="mf.name"></span><input name="name" maxlength="100" autocomplete="name" required></label>
+      <label><span data-t="mf.email"></span><input name="email" type="email" maxlength="200" autocomplete="email"></label>
+    </div>
+    <label><span data-t="mf.message"></span><textarea name="message" rows="5" maxlength="3000" required></textarea></label>
+    <label class="mf-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+    <div class="mf-foot"><button type="submit" class="mf-send" data-t="mf.send"></button><span class="mf-status" id="mfStatus" role="status" aria-live="polite"></span></div>
+  </form>
   <div class="foot-bottom"><span>© 2026 Atticus Guo</span><span>Arcadia, California</span></div>
 </div></footer>
 
@@ -959,6 +986,11 @@ const UI = {
   "papers.title":{en:"Newspaper coverage",zh:"报纸报道"},
   "papers.note":{en:"Tap a page to read the full article",zh:"点击版面查看完整报道"},
   "gallery.title":{en:"Moments",zh:"瞬间"},
+  "mf.kicker":{en:"Leave a message",zh:"给我留言"}, "mf.note":{en:"Your message goes straight to me and is not shown publicly.",zh:"您的留言会直接发给我，不会公开显示。"},
+  "mf.name":{en:"Your name",zh:"您的名字"}, "mf.email":{en:"Email (optional, if you'd like a reply)",zh:"邮箱（选填，方便我回复您）"}, "mf.message":{en:"Message",zh:"留言内容"},
+  "mf.send":{en:"Send message",zh:"发送留言"}, "mf.sending":{en:"Sending…",zh:"正在发送…"}, "mf.ok":{en:"Thank you! Your message has been saved.",zh:"谢谢！您的留言已保存。"},
+  "mf.missing":{en:"Please fill in your name and message.",zh:"请填写名字和留言内容。"}, "mf.bademail":{en:"Please check the email address.",zh:"请检查邮箱格式。"},
+  "mf.rate":{en:"Too many messages. Please try again in a few minutes.",zh:"留言太频繁，请几分钟后再试。"}, "mf.fail":{en:"Sorry, something went wrong. Please try again.",zh:"抱歉，发送失败，请稍后再试。"},
   "contact.kicker":{en:"Contact",zh:"联系"},
   "watch":{en:"Watch video",zh:"观看视频"},
   "contact.text":{en:"I'd be glad to share more about my story, my projects and what I hope to build next.",zh:"期待与您分享更多我的故事、项目，以及我接下来想创造的东西。"},
@@ -1190,6 +1222,24 @@ $("menuBtn").onclick = () => $("navlinks").classList.toggle("open");
 $("navlinks").addEventListener("click", e => { if (e.target.tagName === "A") $("navlinks").classList.remove("open"); });
 $("langBtn").onclick = () => { lang = lang === "en" ? "zh" : "en"; try { localStorage.setItem("ag-lang", lang); } catch(e){} render(); showPage("lang"); };
 $("heroBg").style.backgroundImage = `url(${SITE.heroImage})`;
+/* 留言表单：提交到 /api/contact，保存进 MongoDB */
+$("msgForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, st = $("mfStatus"), btn = f.querySelector(".mf-send"), t = k => UI[k][lang];
+  const name = f.name.value.trim(), email = f.email.value.trim(), message = f.message.value.trim();
+  f.querySelectorAll(".bad").forEach(x => x.classList.remove("bad"));
+  const say = (k, cls) => { st.textContent = t(k); st.className = "mf-status " + (cls || ""); };
+  if (!name || !message) { if (!name) f.name.classList.add("bad"); if (!message) f.message.classList.add("bad"); return say("mf.missing", "err"); }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { f.email.classList.add("bad"); return say("mf.bademail", "err"); }
+  btn.disabled = true; say("mf.sending");
+  try {
+    const r = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, message, lang, website: f.website.value }) });
+    const j = await r.json().catch(() => ({}));
+    if (r.ok && j.ok) { f.reset(); say("mf.ok", "ok"); }
+    else say(j.error === "rate" ? "mf.rate" : j.error === "email" ? "mf.bademail" : j.error === "missing" ? "mf.missing" : "mf.fail", "err");
+  } catch (err) { say("mf.fail", "err"); }
+  btn.disabled = false;
+});
 render();
 showPage();
 </script>

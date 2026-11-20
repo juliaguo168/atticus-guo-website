@@ -1,0 +1,9 @@
+{
+  "name": "atticus-guo-website",
+  "private": true,
+  "version": "1.0.0",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "mongodb": "^6.10.0"
+  }
+}
